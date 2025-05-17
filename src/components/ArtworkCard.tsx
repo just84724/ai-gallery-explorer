@@ -1,8 +1,10 @@
 
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Heart, ZoomIn } from 'lucide-react';
+import { Heart, ZoomIn, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Facebook, Twitter, Instagram, X } from 'lucide-react';
 
 interface ArtworkCardProps {
   id: string;
@@ -27,6 +29,13 @@ const ArtworkCard = ({ id, title, artist, imageSrc, likes, onClick }: ArtworkCar
     setIsLiked(!isLiked);
   };
 
+  const handleShareClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const shareUrl = `https://ai-gallery.com/artwork/${id}`;
+  const shareTitle = `${title} by ${artist}`;
+
   return (
     <Card className="overflow-hidden border-0 shadow-md card-hover bg-white dark:bg-gallery-navy/50 cursor-pointer" onClick={onClick}>
       <CardContent className="p-0">
@@ -42,9 +51,60 @@ const ArtworkCard = ({ id, title, artist, imageSrc, likes, onClick }: ArtworkCar
                 <Heart size={18} className={isLiked ? "fill-gallery-red text-gallery-red" : "text-white"} />
                 <span className="ml-1">{likeCount}</span>
               </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-                <ZoomIn size={18} />
-              </Button>
+              
+              <div className="flex">
+                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+                  <ZoomIn size={18} />
+                </Button>
+                
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/20" onClick={handleShareClick}>
+                      <Share2 size={18} />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-2">
+                    <div className="flex gap-2">
+                      <a 
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full hover:bg-blue-100 transition-colors"
+                        onClick={handleShareClick}
+                      >
+                        <Facebook size={18} className="text-[#1877F2]" />
+                      </a>
+                      <a 
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full hover:bg-blue-100 transition-colors"
+                        onClick={handleShareClick}
+                      >
+                        <Twitter size={18} className="text-[#1DA1F2]" />
+                      </a>
+                      <a 
+                        href={`https://www.instagram.com/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full hover:bg-pink-100 transition-colors"
+                        onClick={handleShareClick}
+                      >
+                        <Instagram size={18} className="text-[#E4405F]" />
+                      </a>
+                      <a 
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                        onClick={handleShareClick}
+                      >
+                        <X size={18} className="text-black dark:text-white" />
+                      </a>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
           </div>
         </div>

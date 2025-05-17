@@ -3,6 +3,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button';
 import { Heart, Download, Share } from 'lucide-react';
 import { useState } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Facebook, Twitter, Instagram, X } from 'lucide-react';
 
 interface ArtworkModalProps {
   isOpen: boolean;
@@ -22,6 +24,9 @@ const ArtworkModal = ({ isOpen, onClose, artwork }: ArtworkModalProps) => {
   const [isLiked, setIsLiked] = useState(false);
   
   if (!artwork) return null;
+
+  const shareUrl = `https://ai-gallery.com/artwork/${artwork.id}`;
+  const shareTitle = `${artwork.title} by ${artwork.artist}`;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -59,10 +64,54 @@ const ArtworkModal = ({ isOpen, onClose, artwork }: ArtworkModalProps) => {
                   <Heart size={18} className={isLiked ? "fill-gallery-red text-gallery-red mr-2" : "mr-2"} />
                   {isLiked ? '已收藏' : '收藏'}
                 </Button>
-                <Button variant="outline" className="flex-1">
-                  <Share size={18} className="mr-2" />
-                  分享
-                </Button>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="flex-1">
+                      <Share size={18} className="mr-2" />
+                      分享
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-2">
+                    <div className="flex gap-3 justify-center">
+                      <a 
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full hover:bg-blue-100 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Facebook size={24} className="text-[#1877F2]" />
+                      </a>
+                      <a 
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full hover:bg-blue-100 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Twitter size={24} className="text-[#1DA1F2]" />
+                      </a>
+                      <a 
+                        href="https://www.instagram.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full hover:bg-pink-100 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Instagram size={24} className="text-[#E4405F]" />
+                      </a>
+                      <a 
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <X size={24} className="text-black dark:text-white" />
+                      </a>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
               <Button className="w-full bg-gallery-red hover:bg-gallery-red/90">
                 <Download size={18} className="mr-2" />
