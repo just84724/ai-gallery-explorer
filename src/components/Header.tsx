@@ -13,6 +13,14 @@ const Header = () => {
     });
   }
 
+  // Helper function to scroll to a section smoothly
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/90 dark:bg-gallery-navy/90 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'
@@ -30,9 +38,9 @@ const Header = () => {
           <nav>
             <ul className="flex gap-8">
               <li><a href="#" className="font-medium hover:text-gallery-red transition-colors">首頁</a></li>
-              <li><a href="#" className="font-medium hover:text-gallery-red transition-colors">藝術家</a></li>
-              <li><a href="#" className="font-medium hover:text-gallery-red transition-colors">展覽</a></li>
-              <li><a href="#" className="font-medium hover:text-gallery-red transition-colors">關於</a></li>
+              <li><a href="#" className="font-medium hover:text-gallery-red transition-colors" onClick={(e) => {e.preventDefault(); scrollToSection('gallery')}}>藝術家</a></li>
+              <li><a href="#" className="font-medium hover:text-gallery-red transition-colors" onClick={(e) => {e.preventDefault(); scrollToSection('about')}}>關於</a></li>
+              <li><a href="#" className="font-medium hover:text-gallery-red transition-colors" onClick={(e) => {e.preventDefault(); scrollToSection('blog')}}>部落格</a></li>
             </ul>
           </nav>
         </div>

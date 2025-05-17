@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import ArtworkCard from './ArtworkCard';
 import ArtworkModal from './ArtworkModal';
@@ -136,7 +135,7 @@ const GallerySection = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gallery-blue/30">
+    <section id="gallery" className="py-16 px-4">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold font-display mb-2">精選作品</h2>
         <p className="text-muted-foreground mb-8">探索我們最新與最受歡迎的AI藝術作品</p>
