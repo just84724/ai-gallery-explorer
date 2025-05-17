@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Gallery, Heart, Search } from 'lucide-react';
+import { GalleryHorizontal, Heart, Search } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,7 +19,7 @@ const Header = () => {
     }`}>
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Gallery size={28} className="text-gallery-red" />
+          <GalleryHorizontal size={28} className="text-gallery-red" />
           <h1 className="text-2xl font-bold font-display">
             <span className="text-gallery-red">AI</span>
             <span>畫廊</span>

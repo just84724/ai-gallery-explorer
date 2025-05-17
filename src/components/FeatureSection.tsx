@@ -1,10 +1,10 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Gallery, Download, Heart } from 'lucide-react';
+import { GalleryHorizontal, Download, Heart } from 'lucide-react';
 
 const features = [
   {
-    icon: <Gallery size={36} className="text-gallery-red" />,
+    icon: <GalleryHorizontal size={36} className="text-gallery-red" />,
     title: '高質量AI藝術',
     description: '我們的平台匯集了最高質量的AI生成藝術作品，每一幅都經過精心挑選與優化。'
   },

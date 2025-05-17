@@ -1,5 +1,5 @@
 
-import { Gallery } from 'lucide-react';
+import { GalleryHorizontal } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Gallery size={24} className="text-gallery-red" />
+              <GalleryHorizontal size={24} className="text-gallery-red" />
               <h3 className="text-xl font-bold font-display">
                 <span className="text-gallery-red">AI</span>
                 <span>畫廊</span>
