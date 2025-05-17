@@ -1,5 +1,5 @@
 
-import { GalleryHorizontal } from 'lucide-react';
+import { GalleryHorizontal, Facebook, Twitter, Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -61,10 +61,33 @@ const Footer = () => {
           <p className="text-gray-400 text-sm">
             © 2025 AI畫廊. 保留所有權利.
           </p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-gallery-red transition-colors">Facebook</a>
-            <a href="#" className="text-gray-400 hover:text-gallery-red transition-colors">Twitter</a>
-            <a href="#" className="text-gray-400 hover:text-gallery-red transition-colors">Instagram</a>
+          <div className="flex gap-6 mt-4 md:mt-0">
+            <div className="flex items-center space-x-4">
+              <a href="https://facebook.com/share?url=https://ai-gallery.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-[#1877F2] transition-colors flex items-center gap-2"
+                aria-label="分享到 Facebook">
+                <Facebook size={20} />
+                <span className="hidden sm:inline">Facebook</span>
+              </a>
+              <a href="https://twitter.com/intent/tweet?url=https://ai-gallery.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-[#1DA1F2] transition-colors flex items-center gap-2"
+                aria-label="分享到 Twitter">
+                <Twitter size={20} />
+                <span className="hidden sm:inline">Twitter</span>
+              </a>
+              <a href="https://www.instagram.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-[#E4405F] transition-colors flex items-center gap-2"
+                aria-label="分享到 Instagram">
+                <Instagram size={20} />
+                <span className="hidden sm:inline">Instagram</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
