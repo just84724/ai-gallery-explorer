@@ -1,11 +1,11 @@
 
-import { GalleryHorizontal, Facebook, Twitter, Instagram } from 'lucide-react';
+import { GalleryHorizontal, Facebook, Twitter, Instagram, Mail } from 'lucide-react';
 
 const Footer = () => {
   return (
     <footer className="bg-gallery-navy text-white">
       <div className="container mx-auto py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <GalleryHorizontal size={24} className="text-gallery-red" />
@@ -17,6 +17,10 @@ const Footer = () => {
             <p className="text-gray-300 text-sm mb-4">
               探索AI藝術的無限可能，發現由人工智能創造的驚艷作品。
             </p>
+            <div className="flex items-center gap-2 text-gray-300 hover:text-gallery-red transition-colors">
+              <Mail size={18} />
+              <a href="mailto:just84724@gmail.com">just84724@gmail.com</a>
+            </div>
           </div>
           
           <div>
@@ -27,33 +31,6 @@ const Footer = () => {
               <li><a href="#" className="hover:text-gallery-red transition-colors">展覽</a></li>
               <li><a href="#" className="hover:text-gallery-red transition-colors">關於我們</a></li>
             </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-medium text-lg mb-4">資源</h4>
-            <ul className="space-y-2 text-gray-300">
-              <li><a href="#" className="hover:text-gallery-red transition-colors">常見問題</a></li>
-              <li><a href="#" className="hover:text-gallery-red transition-colors">使用條款</a></li>
-              <li><a href="#" className="hover:text-gallery-red transition-colors">隱私政策</a></li>
-              <li><a href="#" className="hover:text-gallery-red transition-colors">聯絡我們</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-medium text-lg mb-4">訂閱</h4>
-            <p className="text-gray-300 text-sm mb-4">
-              訂閱我們的電子報，獲取最新藝術作品和活動信息。
-            </p>
-            <div className="flex">
-              <input 
-                type="email" 
-                placeholder="您的電子郵件" 
-                className="bg-white/10 text-white px-4 py-2 rounded-l outline-none focus:bg-white/20 transition-colors"
-              />
-              <button className="bg-gallery-red hover:bg-gallery-red/90 px-4 py-2 rounded-r transition-colors">
-                訂閱
-              </button>
-            </div>
           </div>
         </div>
         
