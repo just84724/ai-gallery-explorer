@@ -4,34 +4,34 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const BlogSection = () => {
-  // Sample blog post data
+  // Personal AI art journey blog posts
   const blogPosts = [
     {
       id: 1,
-      title: 'AI藝術的未來：超越想像的創意邊界',
-      excerpt: '探討人工智能如何徹底改變藝術創作的過程，以及這對藝術世界的意義...',
-      date: '2025-04-28',
-      image: 'https://ai-gallery.com/uploads/blog/future-of-ai-art.jpg',
-      category: '趨勢分析',
-      readTime: '5 分鐘'
+      title: '我的第一篇 AI 創作紀錄',
+      excerpt: '從 SD1.5 時代到現在的 AI 繪圖技術，這兩年來發生了翻天覆地的變化...',
+      date: '2023-05-02',
+      image: 'https://ai-gallery.com/uploads/blog/first-creation.jpg',
+      category: '創作紀錄',
+      readTime: '3 分鐘'
     },
     {
       id: 2,
-      title: '從像素到畫布：AI生成藝術展覽現場報導',
-      excerpt: '本文記錄了最近在台北舉行的「像素夢境」AI藝術展覽，展示了來自世界各地的AI藝術作品...',
-      date: '2025-04-15',
-      image: 'https://ai-gallery.com/uploads/blog/exhibition-report.jpg',
-      category: '展覽報導',
-      readTime: '8 分鐘'
+      title: 'AI模型快速成長的一年',
+      excerpt: '2024 年 AI 繪圖技術的快速躍進，從 Pony 模型的推出到大量 LoRA 的運用...',
+      date: '2024-01-30',
+      image: 'https://ai-gallery.com/uploads/blog/ai-growth.jpg',
+      category: '技術發展',
+      readTime: '4 分鐘'
     },
     {
       id: 3,
-      title: '專訪：AI藝術家林明哲談創作歷程與靈感來源',
-      excerpt: '在這次專訪中，林明哲分享了他如何與AI協作創作出震撼人心的藝術作品...',
-      date: '2025-04-02',
-      image: 'https://ai-gallery.com/uploads/blog/artist-interview.jpg',
-      category: '藝術家專訪',
-      readTime: '12 分鐘'
+      title: 'Illustrious XL 模型的推出與崛起',
+      excerpt: '從 2024 年 10 月的 Illustrious 模型到現在的 Illustrious XL，一款革命性的 AI 繪圖模型...',
+      date: '2025-01-30',
+      image: 'https://ai-gallery.com/uploads/blog/illustrious-xl.jpg',
+      category: '模型評測',
+      readTime: '5 分鐘'
     }
   ];
 
@@ -46,16 +46,16 @@ const BlogSection = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold font-display text-gray-800">
-              <span className="text-gallery-red">部落格</span> 
-              <span className="ml-2">最新文章</span>
+              <span className="text-gallery-red">我的</span> 
+              <span className="ml-2">AI 繪圖旅程</span>
             </h2>
             <p className="text-gray-600 mt-4 max-w-2xl">
-              探索AI藝術的最新趨勢、技術發展和創作靈感，深入了解這個快速演變的領域。
+              從 2023 年至今，記錄我使用 AI 繪圖技術的心得與成長歷程，以及對這個快速發展領域的觀察。
             </p>
           </div>
           <Link to="/blog">
             <Button className="bg-gallery-red hover:bg-gallery-red/90 text-white mt-4 md:mt-0 group">
-              查看全部
+              查看全部文章
               <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
