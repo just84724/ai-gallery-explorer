@@ -10,14 +10,14 @@ const stats = [
 
 const StatsSection = () => {
   return (
-    <section className="py-16 bg-gallery-red">
+    <section className="py-16 bg-gradient-to-r from-gallery-teal/80 to-gallery-red/80">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
-            <Card key={index} className="bg-white/10 border-0 shadow-none text-center">
+            <Card key={index} className="bg-white/80 backdrop-blur-sm border-0 shadow-md text-center hover:shadow-lg transition-all">
               <CardContent className="p-6">
-                <p className="text-4xl font-bold text-white mb-2">{stat.value}</p>
-                <p className="text-white/80">{stat.label}</p>
+                <p className="text-4xl font-bold text-gray-800 mb-2">{stat.value}</p>
+                <p className="text-gray-600">{stat.label}</p>
               </CardContent>
             </Card>
           ))}

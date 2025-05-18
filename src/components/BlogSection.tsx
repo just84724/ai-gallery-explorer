@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -34,7 +35,7 @@ const BlogSection = () => {
   ];
 
   return (
-    <section id="blog" className="py-16 bg-gallery-navy relative">
+    <section id="blog" className="py-16 bg-white relative">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-gallery-gold to-gallery-red"></div>
       <div className="absolute -top-10 right-10 w-20 h-20 rounded-full bg-gallery-red/20 blur-3xl"></div>
@@ -43,11 +44,11 @@ const BlogSection = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold font-display text-white">
+            <h2 className="text-4xl md:text-5xl font-bold font-display text-gray-800">
               <span className="text-gallery-red">部落格</span> 
               <span className="ml-2">最新文章</span>
             </h2>
-            <p className="text-gray-300 mt-4 max-w-2xl">
+            <p className="text-gray-600 mt-4 max-w-2xl">
               探索AI藝術的最新趨勢、技術發展和創作靈感，深入了解這個快速演變的領域。
             </p>
           </div>
@@ -59,23 +60,23 @@ const BlogSection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogPosts.map(post => (
-            <div key={post.id} className="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-gallery-red/50 transition-all hover:shadow-lg hover:shadow-gallery-red/10 group">
-              <div className="aspect-video bg-gray-800 relative overflow-hidden">
+            <div key={post.id} className="bg-gray-50 rounded-xl overflow-hidden border border-gray-100 hover:border-gallery-red/50 transition-all hover:shadow-lg hover:shadow-gallery-red/10 group">
+              <div className="aspect-video bg-gray-200 relative overflow-hidden">
                 {/* Use a gradient placeholder since we don't have real images */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gallery-navy via-gallery-red/20 to-gallery-gold/30"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 via-gallery-red/20 to-gallery-gold/30"></div>
                 <div className="absolute bottom-0 left-0 bg-gallery-red px-3 py-1 text-xs text-white rounded-tr-md">
                   {post.category}
                 </div>
               </div>
               <div className="p-6">
-                <div className="flex justify-between items-center text-sm text-gray-400 mb-3">
+                <div className="flex justify-between items-center text-sm text-gray-500 mb-3">
                   <span>{post.date}</span>
                   <span>{post.readTime}</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-white group-hover:text-gallery-red transition-colors">
+                <h3 className="text-xl font-bold mb-3 text-gray-800 group-hover:text-gallery-red transition-colors">
                   {post.title}
                 </h3>
-                <p className="text-gray-400 mb-4">
+                <p className="text-gray-600 mb-4">
                   {post.excerpt}
                 </p>
                 <a 
