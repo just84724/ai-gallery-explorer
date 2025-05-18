@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Brush, Code, HeartHandshake } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AboutSection = () => {
   return (
@@ -50,9 +51,11 @@ const AboutSection = () => {
         </div>
         
         <div className="text-center">
-          <Button className="bg-gallery-red hover:bg-gallery-red/90 text-white px-8 py-6 text-lg rounded-full">
-            了解更多
-          </Button>
+          <Link to="/about">
+            <Button className="bg-gallery-red hover:bg-gallery-red/90 text-white px-8 py-6 text-lg rounded-full">
+              了解更多
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

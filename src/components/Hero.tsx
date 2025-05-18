@@ -1,7 +1,16 @@
 
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
+  // Helper function to scroll to the gallery section
+  const scrollToGallery = () => {
+    const element = document.getElementById('gallery');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative h-[90vh] flex items-center overflow-hidden">
       {/* Updated background with brighter gradient overlay */}
@@ -19,12 +28,17 @@ const Hero = () => {
             在這裡發現由人工智能創作的震撼藝術作品，沉浸於創新與美學的完美融合。
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button className="bg-gallery-red hover:bg-gallery-red/90 text-white px-8 py-6 text-lg">
+            <Button 
+              className="bg-gallery-red hover:bg-gallery-red/90 text-white px-8 py-6 text-lg"
+              onClick={scrollToGallery}
+            >
               開始探索
             </Button>
-            <Button variant="outline" className="border-gray-800 text-gray-800 hover:bg-gray-800/10 px-8 py-6 text-lg">
-              了解更多
-            </Button>
+            <Link to="/about">
+              <Button variant="outline" className="border-gray-800 text-gray-800 hover:bg-gray-800/10 px-8 py-6 text-lg">
+                了解更多
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

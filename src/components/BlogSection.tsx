@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const BlogSection = () => {
   // Sample blog post data
@@ -52,10 +53,12 @@ const BlogSection = () => {
               探索AI藝術的最新趨勢、技術發展和創作靈感，深入了解這個快速演變的領域。
             </p>
           </div>
-          <Button className="bg-gallery-red hover:bg-gallery-red/90 text-white mt-4 md:mt-0 group">
-            查看全部
-            <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link to="/blog">
+            <Button className="bg-gallery-red hover:bg-gallery-red/90 text-white mt-4 md:mt-0 group">
+              查看全部
+              <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -79,13 +82,13 @@ const BlogSection = () => {
                 <p className="text-gray-600 mb-4">
                   {post.excerpt}
                 </p>
-                <a 
-                  href="#" 
+                <Link 
+                  to={`/blog/${post.id}`}
                   className="inline-flex items-center text-gallery-red font-medium hover:text-gallery-gold transition-colors"
                 >
                   閱讀更多
                   <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
               </div>
             </div>
           ))}
