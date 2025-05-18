@@ -11,7 +11,6 @@ const BlogSection = () => {
       title: '我的第一篇 AI 創作紀錄',
       excerpt: '從 SD1.5 時代到現在的 AI 繪圖技術，這兩年來發生了翻天覆地的變化...',
       date: '2023-05-02',
-      image: 'https://ai-gallery.com/uploads/blog/first-creation.jpg',
       category: '創作紀錄',
       readTime: '3 分鐘'
     },
@@ -20,7 +19,6 @@ const BlogSection = () => {
       title: 'AI模型快速成長的一年',
       excerpt: '2024 年 AI 繪圖技術的快速躍進，從 Pony 模型的推出到大量 LoRA 的運用...',
       date: '2024-01-30',
-      image: 'https://ai-gallery.com/uploads/blog/ai-growth.jpg',
       category: '技術發展',
       readTime: '4 分鐘'
     },
@@ -29,7 +27,6 @@ const BlogSection = () => {
       title: 'Illustrious XL 模型的推出與崛起',
       excerpt: '從 2024 年 10 月的 Illustrious 模型到現在的 Illustrious XL，一款革命性的 AI 繪圖模型...',
       date: '2025-01-30',
-      image: 'https://ai-gallery.com/uploads/blog/illustrious-xl.jpg',
       category: '模型評測',
       readTime: '5 分鐘'
     }
@@ -64,17 +61,13 @@ const BlogSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogPosts.map(post => (
             <div key={post.id} className="bg-gray-50 rounded-xl overflow-hidden border border-gray-100 hover:border-gallery-red/50 transition-all hover:shadow-lg hover:shadow-gallery-red/10 group">
-              <div className="aspect-video bg-gray-200 relative overflow-hidden">
-                {/* Use a gradient placeholder since we don't have real images */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 via-gallery-red/20 to-gallery-gold/30"></div>
-                <div className="absolute bottom-0 left-0 bg-gallery-red px-3 py-1 text-xs text-white rounded-tr-md">
-                  {post.category}
-                </div>
-              </div>
               <div className="p-6">
                 <div className="flex justify-between items-center text-sm text-gray-500 mb-3">
                   <span>{post.date}</span>
                   <span>{post.readTime}</span>
+                </div>
+                <div className="inline-block bg-gallery-red text-white px-3 py-1 text-xs rounded mb-3">
+                  {post.category}
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-800 group-hover:text-gallery-red transition-colors">
                   {post.title}
