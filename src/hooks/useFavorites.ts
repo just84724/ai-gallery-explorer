@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 const useFavorites = () => {
-  const [favorites, setFavorites] = useState<number[]>(() => {
+  const [favorites, setFavorites] = useState<string[]>(() => {
     const saved = localStorage.getItem('favoriteArtworks');
     return saved ? JSON.parse(saved) : [];
   });
@@ -11,15 +11,15 @@ const useFavorites = () => {
     localStorage.setItem('favoriteArtworks', JSON.stringify(favorites));
   }, [favorites]);
 
-  const addFavorite = (artworkId: number) => {
+  const addFavorite = (artworkId: string) => {
     setFavorites((prev) => [...prev, artworkId]);
   };
 
-  const removeFavorite = (artworkId: number) => {
+  const removeFavorite = (artworkId: string) => {
     setFavorites((prev) => prev.filter(id => id !== artworkId));
   };
 
-  const isFavorite = (artworkId: number) => {
+  const isFavorite = (artworkId: string) => {
     return favorites.includes(artworkId);
   };
 

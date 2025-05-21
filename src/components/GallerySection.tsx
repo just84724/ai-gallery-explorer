@@ -89,7 +89,11 @@ const GallerySection = () => {
         <ArtworkModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          artwork={selectedArtwork}
+          artwork={selectedArtwork ? {
+            ...selectedArtwork,
+            medium: selectedArtwork.medium || 'Digital Art',
+            dimensions: selectedArtwork.dimensions || 'Variable'
+          } : null}
         />
       </div>
     </section>

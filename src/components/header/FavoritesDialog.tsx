@@ -29,7 +29,7 @@ const FavoritesDialog = ({ getIconColor }: FavoritesDialogProps) => {
   const favoriteArtworks = artworks.filter(artwork => favorites.includes(artwork.id));
   
   // Handle favorite toggle
-  const handleFavoriteToggle = (artworkId: number) => {
+  const handleFavoriteToggle = (artworkId: string) => {
     removeFavorite(artworkId);
     toast({
       title: "已從收藏中移除",
