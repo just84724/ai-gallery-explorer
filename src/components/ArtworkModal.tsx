@@ -1,122 +1,146 @@
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { useState, useEffect } from 'react';
+import { X, Heart } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Heart, Download, Share } from 'lucide-react';
-import { useState } from 'react';
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Facebook, Twitter, Instagram, X } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface ArtworkModalProps {
-  isOpen: boolean;
-  onClose: () => void;
   artwork: {
-    id: string;
+    id: number;
     title: string;
     artist: string;
-    imageSrc: string;
     description: string;
-    likes: number;
+    imageSrc: string;
     date: string;
+    medium: string;
+    dimensions: string;
   } | null;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-const ArtworkModal = ({ isOpen, onClose, artwork }: ArtworkModalProps) => {
-  const [isLiked, setIsLiked] = useState(false);
-  
+const useFavorites = () => {
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const saved = localStorage.getItem('favoriteArtworks');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('favoriteArtworks', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const addFavorite = (artworkId: number) => {
+    setFavorites((prev) => [...prev, artworkId]);
+  };
+
+  const removeFavorite = (artworkId: number) => {
+    setFavorites((prev) => prev.filter(id => id !== artworkId));
+  };
+
+  const isFavorite = (artworkId: number) => {
+    return favorites.includes(artworkId);
+  };
+
+  return { favorites, addFavorite, removeFavorite, isFavorite };
+};
+
+const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+  const [favorite, setFavorite] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (artwork) {
+      setFavorite(isFavorite(artwork.id));
+    }
+  }, [artwork, isFavorite]);
+
+  const handleFavoriteClick = () => {
+    if (!artwork) return;
+    
+    if (favorite) {
+      removeFavorite(artwork.id);
+      toast({
+        title: "已從收藏中移除",
+        description: "作品已從您的收藏中移除",
+      });
+    } else {
+      addFavorite(artwork.id);
+      toast({
+        title: "已加入收藏",
+        description: "作品已加入您的收藏",
+      });
+    }
+    
+    setFavorite(!favorite);
+  };
+
   if (!artwork) return null;
 
-  const shareUrl = `https://ai-gallery.com/artwork/${artwork.id}`;
-  const shareTitle = `${artwork.title} by ${artwork.artist}`;
-
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl p-0 overflow-hidden bg-white dark:bg-gallery-navy/90">
+    <Dialog open={isOpen} onOpenChange={() => onClose()}>
+      <DialogContent className="sm:max-w-4xl p-0 overflow-hidden">
         <div className="flex flex-col md:flex-row h-full">
-          {/* Image section */}
-          <div className="md:w-2/3 overflow-hidden bg-black">
-            <img 
-              src={artwork.imageSrc} 
-              alt={artwork.title} 
-              className="w-full h-full object-contain max-h-[80vh]"
-            />
-          </div>
-          
-          {/* Details section */}
-          <div className="md:w-1/3 p-6 flex flex-col">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-display">{artwork.title}</DialogTitle>
-              <DialogDescription className="text-base text-muted-foreground">
-                {artwork.artist} • {artwork.date}
-              </DialogDescription>
-            </DialogHeader>
-            
-            <div className="mt-4 mb-6 flex-grow">
-              <p className="text-sm leading-relaxed">{artwork.description}</p>
-            </div>
-            
-            <div className="space-y-3">
-              <div className="flex gap-3">
-                <Button 
-                  variant="outline" 
-                  className={`flex-1 ${isLiked ? 'bg-red-50 text-gallery-red border-gallery-red' : ''}`}
-                  onClick={() => setIsLiked(!isLiked)}
-                >
-                  <Heart size={18} className={isLiked ? "fill-gallery-red text-gallery-red mr-2" : "mr-2"} />
-                  {isLiked ? '已收藏' : '收藏'}
-                </Button>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="flex-1">
-                      <Share size={18} className="mr-2" />
-                      分享
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-2">
-                    <div className="flex gap-3 justify-center">
-                      <a 
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full hover:bg-blue-100 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Facebook size={24} className="text-[#1877F2]" />
-                      </a>
-                      <a 
-                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full hover:bg-blue-100 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Twitter size={24} className="text-[#1DA1F2]" />
-                      </a>
-                      <a 
-                        href="https://www.instagram.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full hover:bg-pink-100 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Instagram size={24} className="text-[#E4405F]" />
-                      </a>
-                      <a 
-                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <X size={24} className="text-black dark:text-white" />
-                      </a>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-              <Button className="w-full bg-gallery-red hover:bg-gallery-red/90">
-                <Download size={18} className="mr-2" />
-                下載圖片
+          {/* Image Section */}
+          <div className="md:w-1/2">
+            <div className="relative h-[300px] md:h-full">
+              <img
+                src={artwork.imageSrc}
+                alt={artwork.title}
+                className="w-full h-full object-cover"
+              />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-2 right-2 bg-black/20 text-white hover:bg-black/40"
+                onClick={handleFavoriteClick}
+              >
+                <Heart 
+                  size={20}
+                  className={favorite ? "fill-gallery-red text-gallery-red" : ""}
+                />
               </Button>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="md:w-1/2 p-6 overflow-y-auto max-h-[80vh]">
+            <div className="flex justify-between items-start">
+              <div>
+                <h2 className="text-2xl font-bold">{artwork.title}</h2>
+                <p className="text-gallery-red font-medium">{artwork.artist}</p>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onClose}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X size={20} />
+              </Button>
+            </div>
+
+            <div className="mt-6 space-y-4">
+              <div>
+                <h3 className="text-sm font-semibold text-gray-500">描述</h3>
+                <p className="mt-1 text-gray-700">{artwork.description}</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-500">日期</h3>
+                  <p className="mt-1 text-gray-700">{artwork.date}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-500">媒介</h3>
+                  <p className="mt-1 text-gray-700">{artwork.medium}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-500">尺寸</h3>
+                  <p className="mt-1 text-gray-700">{artwork.dimensions}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

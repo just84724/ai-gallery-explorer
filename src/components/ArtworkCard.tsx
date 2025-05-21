@@ -1,119 +1,102 @@
 
-import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Heart, ZoomIn, Share2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Facebook, Twitter, Instagram, X } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface ArtworkCardProps {
-  id: string;
+  id: number;
   title: string;
   artist: string;
   imageSrc: string;
-  likes: number;
   onClick: () => void;
 }
 
-const ArtworkCard = ({ id, title, artist, imageSrc, likes, onClick }: ArtworkCardProps) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
+const useFavorites = () => {
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const saved = localStorage.getItem('favoriteArtworks');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('favoriteArtworks', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const addFavorite = (artworkId: number) => {
+    setFavorites((prev) => [...prev, artworkId]);
+  };
+
+  const removeFavorite = (artworkId: number) => {
+    setFavorites((prev) => prev.filter(id => id !== artworkId));
+  };
+
+  const isFavorite = (artworkId: number) => {
+    return favorites.includes(artworkId);
+  };
+
+  return { favorites, addFavorite, removeFavorite, isFavorite };
+};
+
+const ArtworkCard = ({ id, title, artist, imageSrc, onClick }: ArtworkCardProps) => {
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+  const [favorite, setFavorite] = useState(false);
+  const { toast } = useToast();
   
-  const handleLike = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (isLiked) {
-      setLikeCount(likeCount - 1);
+  useEffect(() => {
+    setFavorite(isFavorite(id));
+  }, [id, isFavorite]);
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card click event
+    
+    if (favorite) {
+      removeFavorite(id);
+      toast({
+        title: "已從收藏中移除",
+        description: "作品已從您的收藏中移除",
+      });
     } else {
-      setLikeCount(likeCount + 1);
+      addFavorite(id);
+      toast({
+        title: "已加入收藏",
+        description: "作品已加入您的收藏",
+      });
     }
-    setIsLiked(!isLiked);
+    
+    setFavorite(!favorite);
   };
-
-  const handleShareClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-  };
-
-  const shareUrl = `https://ai-gallery.com/artwork/${id}`;
-  const shareTitle = `${title} by ${artist}`;
 
   return (
-    <Card className="overflow-hidden border-0 shadow-md card-hover bg-white dark:bg-gallery-navy/50 cursor-pointer" onClick={onClick}>
-      <CardContent className="p-0">
-        <div className="image-container aspect-[3/4] bg-gray-100">
-          <img 
-            src={imageSrc} 
-            alt={title} 
-            className="w-full h-full object-cover"
-          />
-          <div className="image-overlay">
-            <div className="flex justify-between items-center">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20" onClick={handleLike}>
-                <Heart size={18} className={isLiked ? "fill-gallery-red text-gallery-red" : "text-white"} />
-                <span className="ml-1">{likeCount}</span>
-              </Button>
-              
-              <div className="flex">
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-                  <ZoomIn size={18} />
-                </Button>
-                
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/20" onClick={handleShareClick}>
-                      <Share2 size={18} />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-2">
-                    <div className="flex gap-2">
-                      <a 
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full hover:bg-blue-100 transition-colors"
-                        onClick={handleShareClick}
-                      >
-                        <Facebook size={18} className="text-[#1877F2]" />
-                      </a>
-                      <a 
-                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full hover:bg-blue-100 transition-colors"
-                        onClick={handleShareClick}
-                      >
-                        <Twitter size={18} className="text-[#1DA1F2]" />
-                      </a>
-                      <a 
-                        href={`https://www.instagram.com/`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full hover:bg-pink-100 transition-colors"
-                        onClick={handleShareClick}
-                      >
-                        <Instagram size={18} className="text-[#E4405F]" />
-                      </a>
-                      <a 
-                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-                        onClick={handleShareClick}
-                      >
-                        <X size={18} className="text-black dark:text-white" />
-                      </a>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="p-4">
-          <h3 className="font-medium text-lg truncate">{title}</h3>
-          <p className="text-muted-foreground text-sm">{artist}</p>
-        </div>
-      </CardContent>
-    </Card>
+    <div
+      className="group relative overflow-hidden rounded-xl shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
+      onClick={onClick}
+    >
+      <div className="relative aspect-[3/4] w-full">
+        <img
+          src={imageSrc}
+          alt={title}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+        <h3 className="text-white font-medium text-lg">{title}</h3>
+        <p className="text-gray-300 text-sm mt-1">{artist}</p>
+      </div>
+      
+      <Button 
+        variant="ghost"
+        size="icon"
+        className="absolute top-2 right-2 text-white hover:bg-black/20"
+        onClick={handleFavoriteClick}
+      >
+        <Heart 
+          size={20} 
+          className={favorite ? "fill-gallery-red text-gallery-red" : ""}
+        />
+      </Button>
+    </div>
   );
 };
 
