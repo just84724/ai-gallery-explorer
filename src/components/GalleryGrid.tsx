@@ -69,3 +69,4 @@ const GalleryGrid = () => {
 };
 
 export default GalleryGrid;
+
