@@ -54,7 +54,6 @@ const GalleryGrid = () => {
             title={artwork.title}
             artist={artwork.artist}
             imageSrc={artwork.imageSrc}
-            likes={artwork.likes}
             onClick={() => handleArtworkClick(artwork)}
           />
         ))}

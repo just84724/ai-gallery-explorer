@@ -7,6 +7,7 @@ import FeatureSection from '@/components/FeatureSection';
 import StatsSection from '@/components/StatsSection';
 import Footer from '@/components/Footer';
 import BlogSection from '@/components/BlogSection';
+import PersonalArtworkSection from '@/components/PersonalArtworkSection';
 
 const Index = () => {
   // Set page title
@@ -21,6 +22,7 @@ const Index = () => {
         <Hero />
         <GallerySection />
         <BlogSection />
+        <PersonalArtworkSection />
         <StatsSection />
         <FeatureSection />
       </main>

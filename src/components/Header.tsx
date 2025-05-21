@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Palette, Heart, Search, X } from 'lucide-react';
+import { WandSparkles, Heart, Search, X } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Dialog,
@@ -48,7 +48,7 @@ const Header = () => {
   const [showFavoritesDialog, setShowFavoritesDialog] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { favorites, addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const { favorites, isFavorite, removeFavorite } = useFavorites();
   const { toast } = useToast();
 
   const isGalleryPage = location.pathname.includes('/gallery');
@@ -100,12 +100,6 @@ const Header = () => {
         title: "已從收藏中移除",
         description: "作品已從您的收藏中移除",
       });
-    } else {
-      addFavorite(artworkId);
-      toast({
-        title: "已加入收藏",
-        description: "作品已加入您的收藏",
-      });
     }
   };
 
@@ -117,8 +111,8 @@ const Header = () => {
 
   // Determine icon color based on page and scroll state
   const getIconColor = () => {
-    if (isGalleryPage) return 'text-white';
-    return isScrolled ? 'text-gray-800' : 'text-white';
+    if (isGalleryPage) return 'text-white hover:text-white/80';
+    return isScrolled ? 'text-gray-800 hover:text-gray-600' : 'text-white hover:text-white/80';
   };
 
   return (
@@ -127,7 +121,7 @@ const Header = () => {
     } ${isGalleryPage ? 'bg-gray-800' : ''}`}>
       <div className="container mx-auto flex items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 z-10">
-          <Palette size={28} className="text-gallery-red" />
+          <WandSparkles size={28} className="text-gallery-red" />
           <h1 className="text-2xl font-bold font-display">
             <span className="text-gallery-red">AI</span>
             <span className={getTextColor()}>畫廊</span>
