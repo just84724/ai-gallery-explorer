@@ -1,5 +1,5 @@
 
-import { GalleryHorizontal, Facebook, Twitter, Instagram, Mail } from 'lucide-react';
+import { Palette, Facebook, Twitter, Instagram, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <GalleryHorizontal size={24} className="text-gallery-red" />
+              <Palette size={24} className="text-gallery-red" />
               <h3 className="text-xl font-bold font-display">
                 <span className="text-gallery-red">AI</span>
                 <span>畫廊</span>
@@ -28,9 +28,8 @@ const Footer = () => {
             <h4 className="font-medium text-lg mb-4">快速鏈接</h4>
             <ul className="space-y-2 text-gray-600">
               <li><Link to="/" className="hover:text-gallery-red transition-colors">首頁</Link></li>
-              <li><Link to="/about" className="hover:text-gallery-red transition-colors">關於我們</Link></li>
               <li><Link to="/blog" className="hover:text-gallery-red transition-colors">部落格</Link></li>
-              <li><a href="#gallery" className="hover:text-gallery-red transition-colors" onClick={(e) => {e.preventDefault(); document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}}>藝術家</a></li>
+              <li><Link to="/gallery" className="hover:text-gallery-red transition-colors">藝術家</Link></li>
             </ul>
           </div>
         </div>

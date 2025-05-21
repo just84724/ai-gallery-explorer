@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { GalleryHorizontal, Heart, Search, X } from 'lucide-react';
+import { Palette, Heart, Search, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Dialog,
@@ -62,8 +62,8 @@ const Header = () => {
       isScrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'
     }`}>
       <div className="container mx-auto flex items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2">
-          <GalleryHorizontal size={28} className="text-gallery-red" />
+        <Link to="/" className="flex items-center gap-2 z-10">
+          <Palette size={28} className="text-gallery-red" />
           <h1 className="text-2xl font-bold font-display">
             <span className="text-gallery-red">AI</span>
             <span className={isScrolled ? 'text-gray-800' : 'text-white'}>畫廊</span>
@@ -74,7 +74,6 @@ const Header = () => {
           <nav>
             <ul className="flex gap-8">
               <li><Link to="/" className={`font-medium hover:text-gallery-red transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>首頁</Link></li>
-              <li><Link to="/about" className={`font-medium hover:text-gallery-red transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>關於</Link></li>
               <li><Link to="/blog" className={`font-medium hover:text-gallery-red transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>部落格</Link></li>
               <li><Link to="/gallery" className={`font-medium hover:text-gallery-red transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>藝術家</Link></li>
             </ul>
