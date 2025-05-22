@@ -1,7 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Gallery } from 'lucide-react';
+import { ImageIcon } from 'lucide-react';
 import { artworks } from '@/data/artworks';
 
 const Hero = () => {
@@ -47,7 +47,7 @@ const Hero = () => {
                 className="bg-gallery-red hover:bg-gallery-red/90 text-white px-8 py-6 text-lg"
                 onClick={scrollToGallery}
               >
-                <Gallery className="mr-2 h-5 w-5" />
+                <ImageIcon className="mr-2 h-5 w-5" />
                 開始探索
               </Button>
               <Link to="/blog">
