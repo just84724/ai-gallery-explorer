@@ -11,13 +11,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+// Define the artwork type based on our data structure
+type Artwork = typeof artworks[0] & {
+  medium?: string;
+  dimensions?: string;
+};
+
 const GalleryGrid = () => {
-  const [selectedArtwork, setSelectedArtwork] = useState<typeof artworks[0] | null>(null);
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [sortOption, setSortOption] = useState('newest');
 
   const handleArtworkClick = (artwork: typeof artworks[0]) => {
-    setSelectedArtwork(artwork);
+    setSelectedArtwork({
+      ...artwork,
+      medium: 'Digital Art',
+      dimensions: 'Variable'
+    });
     setModalOpen(true);
   };
 
@@ -62,11 +72,7 @@ const GalleryGrid = () => {
       <ArtworkModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        artwork={selectedArtwork ? {
-          ...selectedArtwork,
-          medium: selectedArtwork.medium || 'Digital Art',
-          dimensions: selectedArtwork.dimensions || 'Variable'
-        } : null}
+        artwork={selectedArtwork}
       />
     </div>
   );

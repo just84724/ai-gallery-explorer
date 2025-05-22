@@ -7,12 +7,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from 'react-router-dom';
 import { artworks } from '@/data/artworks';
 
+// Define the artwork type based on our data structure
+type Artwork = typeof artworks[0] & {
+  medium?: string;
+  dimensions?: string;
+};
+
 const GallerySection = () => {
-  const [selectedArtwork, setSelectedArtwork] = useState<typeof artworks[0] | null>(null);
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleArtworkClick = (artwork: typeof artworks[0]) => {
-    setSelectedArtwork(artwork);
+    setSelectedArtwork({
+      ...artwork,
+      medium: 'Digital Art',
+      dimensions: 'Variable'
+    });
     setModalOpen(true);
   };
 
@@ -89,11 +99,7 @@ const GallerySection = () => {
         <ArtworkModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          artwork={selectedArtwork ? {
-            ...selectedArtwork,
-            medium: selectedArtwork.medium || 'Digital Art',
-            dimensions: selectedArtwork.dimensions || 'Variable'
-          } : null}
+          artwork={selectedArtwork}
         />
       </div>
     </section>

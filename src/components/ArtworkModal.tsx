@@ -4,10 +4,11 @@ import { X, Heart } from 'lucide-react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import useFavorites from '@/hooks/useFavorites';
 
 interface ArtworkModalProps {
   artwork: {
-    id: number;
+    id: string;
     title: string;
     artist: string;
     description: string;
@@ -19,31 +20,6 @@ interface ArtworkModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const useFavorites = () => {
-  const [favorites, setFavorites] = useState<number[]>(() => {
-    const saved = localStorage.getItem('favoriteArtworks');
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem('favoriteArtworks', JSON.stringify(favorites));
-  }, [favorites]);
-
-  const addFavorite = (artworkId: number) => {
-    setFavorites((prev) => [...prev, artworkId]);
-  };
-
-  const removeFavorite = (artworkId: number) => {
-    setFavorites((prev) => prev.filter(id => id !== artworkId));
-  };
-
-  const isFavorite = (artworkId: number) => {
-    return favorites.includes(artworkId);
-  };
-
-  return { favorites, addFavorite, removeFavorite, isFavorite };
-};
 
 const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
