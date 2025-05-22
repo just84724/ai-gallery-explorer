@@ -1,8 +1,8 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ArtworkCard from './ArtworkCard';
 import ArtworkModal from './ArtworkModal';
-import { artworks } from '@/data/artworks';
+import { artworkService, Artwork } from '@/services/artworkService';
 import {
   Select,
   SelectContent,
@@ -10,64 +10,102 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-// Define the artwork type based on our data structure
-type Artwork = typeof artworks[0] & {
-  medium?: string;
-  dimensions?: string;
-};
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const GalleryGrid = () => {
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [sortOption, setSortOption] = useState('newest');
+  const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleArtworkClick = (artwork: typeof artworks[0]) => {
-    setSelectedArtwork({
-      ...artwork,
-      medium: 'Digital Art',
-      dimensions: 'Variable'
-    });
-    setModalOpen(true);
-  };
+  // Fetch artworks when component mounts or sort option changes
+  useEffect(() => {
+    const fetchArtworks = async () => {
+      setLoading(true);
+      try {
+        const data = await artworkService.getAllArtworks({ 
+          sortBy: sortOption as 'newest' | 'popular' | 'views'
+        });
+        setArtworks(data);
+      } catch (error) {
+        console.error('Error fetching artworks:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Sort artworks based on selected option
-  const sortedArtworks = [...artworks].sort((a, b) => {
-    if (sortOption === 'newest') {
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
-    } else if (sortOption === 'popular') {
-      return b.likes - a.likes;
-    } else {
-      return 0; // default
+    fetchArtworks();
+  }, [sortOption]);
+
+  const handleArtworkClick = async (artwork: Artwork) => {
+    try {
+      // Get the updated artwork with incremented view count
+      const updatedArtwork = await artworkService.getArtworkById(artwork.id);
+      if (updatedArtwork) {
+        setSelectedArtwork(updatedArtwork);
+        setModalOpen(true);
+      }
+    } catch (error) {
+      console.error('Error fetching artwork details:', error);
     }
-  });
+  };
 
   return (
     <div>
-      <div className="flex justify-end mb-6">
-        <Select value={sortOption} onValueChange={setSortOption}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="排序方式" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="newest">最新上傳</SelectItem>
-            <SelectItem value="popular">最受歡迎</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <Tabs defaultValue="all" className="mb-8">
+        <TabsList>
+          <TabsTrigger value="all">所有作品</TabsTrigger>
+          <TabsTrigger value="popular">最受歡迎</TabsTrigger>
+          <TabsTrigger value="views">最多瀏覽</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="all">
+          <div className="flex justify-end mb-6">
+            <Select value={sortOption} onValueChange={setSortOption}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="排序方式" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">最新上傳</SelectItem>
+                <SelectItem value="popular">最受歡迎</SelectItem>
+                <SelectItem value="views">最多瀏覽</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="popular">
+          {/* Content for popular tab */}
+        </TabsContent>
+        
+        <TabsContent value="views">
+          {/* Content for most viewed tab */}
+        </TabsContent>
+      </Tabs>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {sortedArtworks.map((artwork) => (
-          <ArtworkCard 
-            key={artwork.id}
-            id={artwork.id}
-            title={artwork.title}
-            artist={artwork.artist}
-            imageSrc={artwork.imageSrc}
-            onClick={() => handleArtworkClick(artwork)}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, index) => (
+            <div key={index} className="aspect-[3/4] rounded-xl bg-slate-200 animate-pulse"></div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {artworks.map((artwork) => (
+            <ArtworkCard 
+              key={artwork.id}
+              id={artwork.id}
+              title={artwork.title}
+              artist={artwork.artist}
+              imageSrc={artwork.imageSrc}
+              likes={artwork.likes}
+              views={artwork.views}
+              onClick={() => handleArtworkClick(artwork)}
+            />
+          ))}
+        </div>
+      )}
       
       <ArtworkModal
         isOpen={modalOpen}
