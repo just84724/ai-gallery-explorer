@@ -14,6 +14,7 @@ const GallerySection = () => {
   const [popularArtworks, setPopularArtworks] = useState<Artwork[]>([]);
   const [recentArtworks, setRecentArtworks] = useState<Artwork[]>([]);
   const [featuredArtworks, setFeaturedArtworks] = useState<Artwork[]>([]);
+  const [mostViewedArtworks, setMostViewedArtworks] = useState<Artwork[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,6 +35,13 @@ const GallerySection = () => {
           limit: 8
         });
         setRecentArtworks(recent);
+
+        // Fetch most viewed artworks
+        const mostViewed = await artworkService.getAllArtworks({
+          sortBy: 'views',
+          limit: 8
+        });
+        setMostViewedArtworks(mostViewed);
 
         // For featured artworks, we'll get all and shuffle to simulate editorial picks
         const all = await artworkService.getAllArtworks();
@@ -75,6 +83,7 @@ const GallerySection = () => {
               <TabsTrigger value="popular">熱門作品</TabsTrigger>
               <TabsTrigger value="recent">最新作品</TabsTrigger>
               <TabsTrigger value="featured">編輯精選</TabsTrigger>
+              <TabsTrigger value="views">瀏覽最多</TabsTrigger>
             </TabsList>
             
             <TabsContent value="popular" className="mt-6">
@@ -87,6 +96,7 @@ const GallerySection = () => {
                     artist={artwork.artist}
                     imageSrc={artwork.imageSrc}
                     likes={artwork.likes}
+                    views={artwork.views}
                     onClick={() => handleArtworkClick(artwork)}
                   />
                 ))}
@@ -103,6 +113,7 @@ const GallerySection = () => {
                     artist={artwork.artist}
                     imageSrc={artwork.imageSrc}
                     likes={artwork.likes}
+                    views={artwork.views}
                     onClick={() => handleArtworkClick(artwork)}
                   />
                 ))}
@@ -119,6 +130,24 @@ const GallerySection = () => {
                     artist={artwork.artist}
                     imageSrc={artwork.imageSrc}
                     likes={artwork.likes}
+                    views={artwork.views}
+                    onClick={() => handleArtworkClick(artwork)}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="views" className="mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-fade-in">
+                {mostViewedArtworks.map((artwork) => (
+                  <ArtworkCard 
+                    key={artwork.id}
+                    id={artwork.id}
+                    title={artwork.title}
+                    artist={artwork.artist}
+                    imageSrc={artwork.imageSrc}
+                    likes={artwork.likes}
+                    views={artwork.views}
                     onClick={() => handleArtworkClick(artwork)}
                   />
                 ))}

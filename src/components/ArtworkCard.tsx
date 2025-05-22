@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import useFavorites from '@/hooks/useFavorites';
@@ -11,10 +11,11 @@ interface ArtworkCardProps {
   artist: string;
   imageSrc: string;
   likes?: number;
+  views?: number;
   onClick: () => void;
 }
 
-const ArtworkCard = ({ id, title, artist, imageSrc, onClick }: ArtworkCardProps) => {
+const ArtworkCard = ({ id, title, artist, imageSrc, likes = 0, views = 0, onClick }: ArtworkCardProps) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const [favorite, setFavorite] = useState(false);
   const { toast } = useToast();
@@ -52,7 +53,7 @@ const ArtworkCard = ({ id, title, artist, imageSrc, onClick }: ArtworkCardProps)
         <img
           src={imageSrc}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="h-full w-full object-contain bg-black transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
@@ -60,6 +61,11 @@ const ArtworkCard = ({ id, title, artist, imageSrc, onClick }: ArtworkCardProps)
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
         <h3 className="text-white font-medium text-lg">{title}</h3>
         <p className="text-gray-300 text-sm mt-1">{artist}</p>
+        
+        <div className="flex items-center mt-2 text-xs text-white/70">
+          <Eye size={12} className="mr-1" />
+          <span>{views} 次瀏覽</span>
+        </div>
       </div>
       
       <Button 

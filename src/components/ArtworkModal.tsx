@@ -86,7 +86,7 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
   const dimensions = artwork.dimensions || 'Variable';
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => onClose()}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-4xl p-0 overflow-hidden">
         <div className="flex flex-col md:flex-row h-full">
           {/* Image Section */}
@@ -95,7 +95,7 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
               <img
                 src={artwork.imageSrc}
                 alt={artwork.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain bg-black"
               />
               <div className="absolute top-2 right-2 flex gap-2">
                 <Button

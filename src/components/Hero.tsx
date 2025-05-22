@@ -76,11 +76,13 @@ const Hero = () => {
                   <CarouselItem key={artwork.id}>
                     <div className="p-1">
                       <div className="overflow-hidden rounded-xl shadow-lg">
-                        <img 
-                          src={artwork.imageSrc} 
-                          alt={artwork.title} 
-                          className="w-full h-[350px] object-cover transition-transform duration-500 hover:scale-105"
-                        />
+                        <div className="relative pb-[100%]">
+                          <img 
+                            src={artwork.imageSrc} 
+                            alt={artwork.title} 
+                            className="absolute inset-0 w-full h-full object-contain bg-black"
+                          />
+                        </div>
                         <div className="bg-black/70 text-white p-3">
                           <h3 className="text-lg font-semibold">{artwork.title}</h3>
                           <p className="text-sm text-gallery-red">{artwork.artist}</p>

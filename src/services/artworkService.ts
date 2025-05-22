@@ -12,10 +12,14 @@ export interface Artwork {
   date: string;
   medium?: string;
   dimensions?: string;
+  views: number; // Added view count
 }
 
 // Simulated database
-let artworks: Artwork[] = [...initialArtworks];
+let artworks: Artwork[] = [...initialArtworks].map(artwork => ({
+  ...artwork,
+  views: Math.floor(Math.random() * 1000) // Initialize with random view counts
+}));
 let favorites: string[] = [];
 
 // Simulate network delay
@@ -25,7 +29,7 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export const artworkService = {
   // Get all artworks with optional filtering and sorting
   getAllArtworks: async (options?: { 
-    sortBy?: 'newest' | 'popular',
+    sortBy?: 'newest' | 'popular' | 'views',
     limit?: number
   }): Promise<Artwork[]> => {
     // Simulate network delay
@@ -38,6 +42,8 @@ export const artworkService = {
       result.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     } else if (options?.sortBy === 'popular') {
       result.sort((a, b) => b.likes - a.likes);
+    } else if (options?.sortBy === 'views') {
+      result.sort((a, b) => b.views - a.views);
     }
     
     // Apply limit
@@ -52,6 +58,12 @@ export const artworkService = {
   getArtworkById: async (id: string): Promise<Artwork | null> => {
     await delay(500);
     const artwork = artworks.find(art => art.id === id);
+    
+    if (artwork) {
+      // Increment view count when getting artwork details
+      artwork.views += 1;
+    }
+    
     return artwork || null;
   },
   
@@ -103,13 +115,14 @@ export const artworkService = {
   },
 
   // Add new artwork (simulating submission)
-  addArtwork: async (newArtwork: Omit<Artwork, "id" | "likes" | "date">): Promise<Artwork> => {
+  addArtwork: async (newArtwork: Omit<Artwork, "id" | "likes" | "date" | "views">): Promise<Artwork> => {
     await delay(1000);
     const id = `${artworks.length + 1}`;
     const artwork: Artwork = {
       ...newArtwork,
       id,
       likes: 0,
+      views: 0,
       date: new Date().toISOString().split("T")[0]
     };
     
