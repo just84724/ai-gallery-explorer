@@ -14,8 +14,8 @@ interface ArtworkModalProps {
     description: string;
     imageSrc: string;
     date: string;
-    medium: string;
-    dimensions: string;
+    medium?: string;  // Make optional to match the Artwork type
+    dimensions?: string;  // Make optional to match the Artwork type
   } | null;
   isOpen: boolean;
   onClose: () => void;
@@ -53,6 +53,10 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
   };
 
   if (!artwork) return null;
+
+  // Set default values for medium and dimensions if they're missing
+  const medium = artwork.medium || 'Digital Art';
+  const dimensions = artwork.dimensions || 'Variable';
 
   return (
     <Dialog open={isOpen} onOpenChange={() => onClose()}>
@@ -110,11 +114,11 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">媒介</h3>
-                  <p className="mt-1 text-gray-700">{artwork.medium}</p>
+                  <p className="mt-1 text-gray-700">{medium}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">尺寸</h3>
-                  <p className="mt-1 text-gray-700">{artwork.dimensions}</p>
+                  <p className="mt-1 text-gray-700">{dimensions}</p>
                 </div>
               </div>
             </div>
