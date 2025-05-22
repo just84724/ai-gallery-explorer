@@ -1,29 +1,61 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ArtworkCard from './ArtworkCard';
 import ArtworkModal from './ArtworkModal';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from 'react-router-dom';
-import { artworks } from '@/data/artworks';
-
-// Define the artwork type based on our data structure
-type Artwork = typeof artworks[0] & {
-  medium?: string;
-  dimensions?: string;
-};
+import { artworkService, Artwork } from '@/services/artworkService';
+import { Loader2 } from 'lucide-react';
 
 const GallerySection = () => {
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [popularArtworks, setPopularArtworks] = useState<Artwork[]>([]);
+  const [recentArtworks, setRecentArtworks] = useState<Artwork[]>([]);
+  const [featuredArtworks, setFeaturedArtworks] = useState<Artwork[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleArtworkClick = (artwork: typeof artworks[0]) => {
-    setSelectedArtwork({
-      ...artwork,
-      medium: 'Digital Art',
-      dimensions: 'Variable'
-    });
-    setModalOpen(true);
+  useEffect(() => {
+    // Fetch artworks when component mounts
+    const fetchArtworks = async () => {
+      setLoading(true);
+      try {
+        // Fetch popular artworks
+        const popular = await artworkService.getAllArtworks({
+          sortBy: 'popular',
+          limit: 8
+        });
+        setPopularArtworks(popular);
+
+        // Fetch recent artworks
+        const recent = await artworkService.getAllArtworks({
+          sortBy: 'newest',
+          limit: 8
+        });
+        setRecentArtworks(recent);
+
+        // For featured artworks, we'll get all and shuffle to simulate editorial picks
+        const all = await artworkService.getAllArtworks();
+        const shuffled = [...all].sort(() => 0.5 - Math.random()).slice(0, 8);
+        setFeaturedArtworks(shuffled);
+      } catch (error) {
+        console.error('Failed to fetch artworks:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArtworks();
+  }, []);
+
+  const handleArtworkClick = async (artwork: Artwork) => {
+    // Get the full artwork details
+    const fullArtwork = await artworkService.getArtworkById(artwork.id);
+    if (fullArtwork) {
+      setSelectedArtwork(fullArtwork);
+      setModalOpen(true);
+    }
   };
 
   return (
@@ -32,61 +64,68 @@ const GallerySection = () => {
         <h2 className="text-3xl font-bold font-display mb-2">精選作品</h2>
         <p className="text-muted-foreground mb-8">探索我們最新與最受歡迎的AI藝術作品</p>
         
-        <Tabs defaultValue="popular" className="mb-8">
-          <TabsList>
-            <TabsTrigger value="popular">熱門作品</TabsTrigger>
-            <TabsTrigger value="recent">最新作品</TabsTrigger>
-            <TabsTrigger value="featured">編輯精選</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="popular" className="mt-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-fade-in">
-              {artworks.slice(0, 8).sort((a, b) => b.likes - a.likes).map((artwork) => (
-                <ArtworkCard 
-                  key={artwork.id}
-                  id={artwork.id}
-                  title={artwork.title}
-                  artist={artwork.artist}
-                  imageSrc={artwork.imageSrc}
-                  likes={artwork.likes}
-                  onClick={() => handleArtworkClick(artwork)}
-                />
-              ))}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="recent" className="mt-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-fade-in">
-              {[...artworks].slice(0, 8).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((artwork) => (
-                <ArtworkCard 
-                  key={artwork.id}
-                  id={artwork.id}
-                  title={artwork.title}
-                  artist={artwork.artist}
-                  imageSrc={artwork.imageSrc}
-                  likes={artwork.likes}
-                  onClick={() => handleArtworkClick(artwork)}
-                />
-              ))}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="featured" className="mt-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-fade-in">
-              {[...artworks].sort(() => 0.5 - Math.random()).slice(0, 8).map((artwork) => (
-                <ArtworkCard 
-                  key={artwork.id}
-                  id={artwork.id}
-                  title={artwork.title}
-                  artist={artwork.artist}
-                  imageSrc={artwork.imageSrc}
-                  likes={artwork.likes}
-                  onClick={() => handleArtworkClick(artwork)}
-                />
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="h-8 w-8 animate-spin text-gallery-red" />
+            <span className="ml-2 text-lg">載入作品中...</span>
+          </div>
+        ) : (
+          <Tabs defaultValue="popular" className="mb-8">
+            <TabsList>
+              <TabsTrigger value="popular">熱門作品</TabsTrigger>
+              <TabsTrigger value="recent">最新作品</TabsTrigger>
+              <TabsTrigger value="featured">編輯精選</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="popular" className="mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-fade-in">
+                {popularArtworks.map((artwork) => (
+                  <ArtworkCard 
+                    key={artwork.id}
+                    id={artwork.id}
+                    title={artwork.title}
+                    artist={artwork.artist}
+                    imageSrc={artwork.imageSrc}
+                    likes={artwork.likes}
+                    onClick={() => handleArtworkClick(artwork)}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="recent" className="mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-fade-in">
+                {recentArtworks.map((artwork) => (
+                  <ArtworkCard 
+                    key={artwork.id}
+                    id={artwork.id}
+                    title={artwork.title}
+                    artist={artwork.artist}
+                    imageSrc={artwork.imageSrc}
+                    likes={artwork.likes}
+                    onClick={() => handleArtworkClick(artwork)}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="featured" className="mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-fade-in">
+                {featuredArtworks.map((artwork) => (
+                  <ArtworkCard 
+                    key={artwork.id}
+                    id={artwork.id}
+                    title={artwork.title}
+                    artist={artwork.artist}
+                    imageSrc={artwork.imageSrc}
+                    likes={artwork.likes}
+                    onClick={() => handleArtworkClick(artwork)}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+          </Tabs>
+        )}
         
         <div className="flex justify-center mt-10">
           <Link to="/gallery">

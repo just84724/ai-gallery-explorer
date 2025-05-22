@@ -5,18 +5,10 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import useFavorites from '@/hooks/useFavorites';
+import { artworkService, Artwork } from '@/services/artworkService';
 
 interface ArtworkModalProps {
-  artwork: {
-    id: string;
-    title: string;
-    artist: string;
-    description: string;
-    imageSrc: string;
-    date: string;
-    medium?: string;  // Make optional to match the Artwork type
-    dimensions?: string;  // Make optional to match the Artwork type
-  } | null;
+  artwork: Artwork | null;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -24,32 +16,67 @@ interface ArtworkModalProps {
 const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const [favorite, setFavorite] = useState(false);
+  const [liking, setLiking] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
     if (artwork) {
       setFavorite(isFavorite(artwork.id));
+      setLikesCount(artwork.likes);
     }
   }, [artwork, isFavorite]);
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = async () => {
     if (!artwork) return;
     
-    if (favorite) {
-      removeFavorite(artwork.id);
+    try {
+      if (favorite) {
+        await artworkService.removeFromFavorites(artwork.id);
+        removeFavorite(artwork.id);
+        toast({
+          title: "已從收藏中移除",
+          description: "作品已從您的收藏中移除",
+        });
+      } else {
+        await artworkService.addToFavorites(artwork.id);
+        addFavorite(artwork.id);
+        toast({
+          title: "已加入收藏",
+          description: "作品已加入您的收藏",
+        });
+      }
+      
+      setFavorite(!favorite);
+    } catch (error) {
       toast({
-        title: "已從收藏中移除",
-        description: "作品已從您的收藏中移除",
-      });
-    } else {
-      addFavorite(artwork.id);
-      toast({
-        title: "已加入收藏",
-        description: "作品已加入您的收藏",
+        title: "操作失敗",
+        description: "無法更新收藏狀態，請稍後再試",
+        variant: "destructive"
       });
     }
+  };
+
+  const handleLikeClick = async () => {
+    if (!artwork) return;
     
-    setFavorite(!favorite);
+    setLiking(true);
+    try {
+      const updatedArtwork = await artworkService.likeArtwork(artwork.id);
+      setLikesCount(updatedArtwork.likes);
+      toast({
+        title: "點讚成功",
+        description: "感謝您對這件作品的喜愛！",
+      });
+    } catch (error) {
+      toast({
+        title: "點讚失敗",
+        description: "無法更新點讚數量，請稍後再試",
+        variant: "destructive"
+      });
+    } finally {
+      setLiking(false);
+    }
   };
 
   if (!artwork) return null;
@@ -70,17 +97,19 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
                 alt={artwork.title}
                 className="w-full h-full object-cover"
               />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-2 right-2 bg-black/20 text-white hover:bg-black/40"
-                onClick={handleFavoriteClick}
-              >
-                <Heart 
-                  size={20}
-                  className={favorite ? "fill-gallery-red text-gallery-red" : ""}
-                />
-              </Button>
+              <div className="absolute top-2 right-2 flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="bg-black/20 text-white hover:bg-black/40"
+                  onClick={handleFavoriteClick}
+                >
+                  <Heart 
+                    size={20}
+                    className={favorite ? "fill-gallery-red text-gallery-red" : ""}
+                  />
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -119,6 +148,21 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">尺寸</h3>
                   <p className="mt-1 text-gray-700">{dimensions}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-500">點讚</h3>
+                  <div className="mt-1 flex items-center">
+                    <span className="text-gray-700 mr-2">{likesCount}</span>
+                    <Button 
+                      size="sm"
+                      variant="outline"
+                      className="h-8 px-3"
+                      onClick={handleLikeClick}
+                      disabled={liking}
+                    >
+                      {liking ? "處理中..." : "點讚"}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

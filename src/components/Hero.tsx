@@ -3,6 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ImageIcon } from 'lucide-react';
 import { artworks } from '@/data/artworks';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
 const Hero = () => {
   // Helper function to scroll to the gallery section
@@ -13,12 +20,12 @@ const Hero = () => {
     }
   };
 
-  // Select a subset of artworks to display as thumbnails
-  const thumbnailArtworks = artworks.slice(0, 6);
+  // Select featured artworks to display in the carousel
+  const featuredArtworks = artworks.slice(0, 6);
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Updated background with more AI art styled gradient */}
+      {/* Background with AI art styled gradient */}
       <div className="absolute inset-0 z-0">
         <div 
           className="absolute inset-0 bg-gradient-to-r from-gallery-red/30 via-purple-600/40 to-gallery-blue/50"
@@ -61,27 +68,31 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Thumbnail Grid for AI Artworks */}
+          {/* Carousel for AI Artworks */}
           <div className="hidden lg:block">
-            <div className="grid grid-cols-3 gap-3 perspective-800">
-              {thumbnailArtworks.map((artwork, index) => (
-                <div 
-                  key={artwork.id}
-                  className={`
-                    rounded-lg overflow-hidden shadow-lg transform transition-all duration-500
-                    hover:scale-105 hover:z-10 opacity-90 hover:opacity-100
-                    ${index === 0 || index === 5 ? 'rotate-3' : ''}
-                    ${index === 2 || index === 3 ? '-rotate-3' : ''}
-                  `}
-                >
-                  <img 
-                    src={artwork.imageSrc}
-                    alt={artwork.title}
-                    className="w-full h-32 object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+            <Carousel className="w-full max-w-lg mx-auto">
+              <CarouselContent>
+                {featuredArtworks.map((artwork) => (
+                  <CarouselItem key={artwork.id}>
+                    <div className="p-1">
+                      <div className="overflow-hidden rounded-xl shadow-lg">
+                        <img 
+                          src={artwork.imageSrc} 
+                          alt={artwork.title} 
+                          className="w-full h-[350px] object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                        <div className="bg-black/70 text-white p-3">
+                          <h3 className="text-lg font-semibold">{artwork.title}</h3>
+                          <p className="text-sm text-gallery-red">{artwork.artist}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0 bg-black/40 text-white hover:bg-black/60" />
+              <CarouselNext className="right-0 bg-black/40 text-white hover:bg-black/60" />
+            </Carousel>
           </div>
         </div>
       </div>
