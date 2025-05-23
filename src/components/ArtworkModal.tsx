@@ -120,14 +120,7 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
                 <h2 className="text-2xl font-bold">{artwork.title}</h2>
                 <p className="text-gallery-red font-medium">{artwork.artist}</p>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={onClose}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <X size={20} />
-              </Button>
+              {/* 移除這個自定義的關閉按鈕，因為DialogContent已經自帶了一個 */}
             </div>
 
             <div className="mt-6 space-y-4">
