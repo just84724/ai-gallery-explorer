@@ -116,5 +116,59 @@ export const artworks = [
     description: '這幅作品展現了一位金髮角色手持特殊設計的紅色劍。劍身上的心形圖案和日落背景形成鮮明對比，展現出力量與情感的結合。',
     likes: 303,
     date: '2025-03-25'
+  },
+  {
+    id: '14',
+    title: '戰鬥少女',
+    artist: 'AI幻想藝術家',
+    imageSrc: '/lovable-uploads/3685829d-519a-4cac-80f5-e6cd93efefbd.png',
+    description: '這位銀髮戰士少女身穿黑紅配色的戰鬥服裝，手持精緻的槍械。她的眼神堅定而勇敢，展現出現代與古典軍事美學的完美結合。',
+    likes: 455,
+    date: '2025-04-15'
+  },
+  {
+    id: '15',
+    title: '和風紅裳',
+    artist: 'AI東方工坊',
+    imageSrc: '/lovable-uploads/40cea8a2-15bb-4d01-aa24-bf4797aa7128.png',
+    description: '身穿紅色和服的黑髮少女在傳統日式房間中品茶，紅色彼岸花點綴其間。溫暖的燈光營造出寧靜祥和的氛圍，展現東方古典美。',
+    likes: 388,
+    date: '2025-04-13'
+  },
+  {
+    id: '16',
+    title: '月夜蝶舞',
+    artist: 'AI夜景創作室',
+    imageSrc: '/lovable-uploads/e54f9fb8-1454-4b91-a15e-c6d88f82034e.png',
+    description: '在靜謐的夜晚，黑髮少女坐在小船上，身邊飛舞著紅色蝴蝶。背景的鳥居和彼岸花營造出神秘而浪漫的和風意境。',
+    likes: 432,
+    date: '2025-04-11'
+  },
+  {
+    id: '17',
+    title: '神社傘影',
+    artist: 'AI傳統美學',
+    imageSrc: '/lovable-uploads/c9480c2a-6623-4b21-82ea-6cc5aa0f4df0.png',
+    description: '銀髮少女身穿白色和服，手持紅色油紙傘，站在神社的石階上。藍天白雲與傳統建築交相輝映，展現日本古典文化的優雅。',
+    likes: 367,
+    date: '2025-04-09'
+  },
+  {
+    id: '18',
+    title: '夏日冰棒',
+    artist: 'AI日常生活',
+    imageSrc: '/lovable-uploads/ca33c29b-12ef-4031-aa05-ca04473ff5d5.png',
+    description: '金髮少女在櫻花飛舞的陽台上享受著清涼的冰棒，藍天白雲和遠山構成美麗的背景。畫面充滿了夏日的清新與青春活力。',
+    likes: 295,
+    date: '2025-04-07'
+  },
+  {
+    id: '19',
+    title: '紫刃戰姬',
+    artist: 'AI戰鬥美學',
+    imageSrc: '/lovable-uploads/b64f3ef1-d4fc-496f-ae31-274b29f816e8.png',
+    description: '金髮戰士少女手持發光的紫色光劍，在古代廢墟中展現出強大的戰鬥力。光劍的紫色光芒與溫暖的環境光形成鮮明對比，充滿動感。',
+    likes: 478,
+    date: '2025-04-14'
   }
 ];
