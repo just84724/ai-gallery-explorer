@@ -52,7 +52,7 @@ const Header = () => {
             <ul className="flex gap-8">
               <li><Link to="/" className={`font-medium hover:text-gallery-red transition-colors ${getTextColor()}`}>首頁</Link></li>
               <li><Link to="/blog" className={`font-medium hover:text-gallery-red transition-colors ${getTextColor()}`}>部落格</Link></li>
-              <li><Link to="/gallery" className={`font-medium hover:text-gallery-red transition-colors ${getTextColor()}`}>藝術家</Link></li>
+              <li><Link to="/gallery" className={`font-medium hover:text-gallery-red transition-colors ${getTextColor()}`}>AI繪圖作品</Link></li>
             </ul>
           </nav>
         </div>

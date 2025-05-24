@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Personal AI art journey blog posts
@@ -56,63 +56,63 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gallery-red/5 via-purple-50 to-gallery-gold/10">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-pink-100 via-orange-50 to-red-100">
       <Header />
       <main className="flex-grow pt-24">
         {/* Back to Home button */}
         <div className="container mx-auto px-4 pt-4">
-          <Link to="/" className="inline-flex items-center text-gallery-red hover:text-gallery-gold mb-4 transition-colors font-medium">
-            <ArrowLeft size={16} className="mr-2" />
+          <Link to="/" className="inline-flex items-center text-orange-600 hover:text-pink-600 mb-4 transition-colors font-bold text-lg">
+            <Home size={20} className="mr-2" />
             返回首頁
           </Link>
         </div>
 
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-br from-gallery-red/20 to-gallery-gold/20 relative">
+        <section className="py-20 bg-gradient-to-br from-orange-400/30 via-pink-400/20 to-red-400/30 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-display">
-                <span className="text-gallery-red">我的</span> 
-                <span className="text-purple-700 ml-2">AI 繪圖旅程</span>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 font-display">
+                <span className="text-orange-600 drop-shadow-lg">我的</span> 
+                <span className="text-pink-600 ml-3 drop-shadow-lg">AI 繪圖旅程</span>
               </h1>
-              <p className="text-xl text-gray-700 mb-8 max-w-2xl font-medium">
+              <p className="text-2xl text-gray-800 mb-10 max-w-2xl font-bold leading-relaxed">
                 從 2023 年至今，記錄我使用 AI 繪圖技術的心得與成長歷程，以及對這個快速發展領域的觀察。
               </p>
-              <div className="w-24 h-1 bg-gradient-to-r from-gallery-red to-gallery-gold"></div>
+              <div className="w-32 h-2 bg-gradient-to-r from-orange-500 to-pink-500 rounded-full shadow-lg"></div>
             </div>
           </div>
           
           {/* Decorative elements */}
-          <div className="absolute -top-10 right-10 w-20 h-20 rounded-full bg-gallery-red/20 blur-3xl"></div>
-          <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full bg-gallery-gold/20 blur-3xl"></div>
+          <div className="absolute -top-10 right-10 w-24 h-24 rounded-full bg-orange-400/40 blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-pink-400/40 blur-3xl"></div>
         </section>
         
         {/* Blog Posts Grid */}
-        <section className="py-16 bg-white/80 backdrop-blur-sm">
+        <section className="py-20 bg-gradient-to-br from-white via-orange-50 to-pink-50">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {blogPosts.map(post => (
-                <div key={post.id} className="bg-white/90 rounded-xl overflow-hidden border-2 border-gallery-red/20 hover:border-gallery-red/60 transition-all hover:shadow-xl hover:shadow-gallery-red/20 group backdrop-blur-sm">
-                  <div className="p-6">
-                    <div className="flex justify-between items-center text-sm text-gray-600 mb-3 font-medium">
-                      <span>{post.date}</span>
-                      <span className="text-gallery-red">{post.readTime}</span>
+                <div key={post.id} className="bg-white rounded-2xl overflow-hidden border-3 border-orange-300 hover:border-pink-400 transition-all hover:shadow-2xl hover:shadow-pink-400/30 group transform hover:-translate-y-2 duration-300">
+                  <div className="p-8">
+                    <div className="flex justify-between items-center text-sm text-gray-700 mb-4 font-bold">
+                      <span className="bg-orange-100 px-3 py-1 rounded-full text-orange-700">{post.date}</span>
+                      <span className="text-pink-600 bg-pink-100 px-3 py-1 rounded-full">{post.readTime}</span>
                     </div>
-                    <div className="inline-block bg-gradient-to-r from-gallery-red to-purple-600 text-white px-3 py-1 text-xs rounded-full mb-3 font-medium">
+                    <div className="inline-block bg-gradient-to-r from-orange-500 to-pink-500 text-white px-4 py-2 text-sm rounded-full mb-4 font-bold shadow-lg">
                       {post.category}
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-800 group-hover:text-gallery-red transition-colors">
+                    <h3 className="text-2xl font-black mb-4 text-gray-900 group-hover:text-pink-600 transition-colors leading-tight">
                       {post.title}
                     </h3>
-                    <p className="text-gray-700 mb-4 leading-relaxed">
+                    <p className="text-gray-700 mb-6 leading-relaxed font-medium text-lg">
                       {post.excerpt}
                     </p>
                     <Link
                       to={`/blog/${post.id}`}
-                      className="inline-flex items-center text-gallery-red font-bold hover:text-purple-600 transition-colors"
+                      className="inline-flex items-center text-orange-600 font-black hover:text-pink-600 transition-colors text-lg"
                     >
                       閱讀更多
-                      <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </div>

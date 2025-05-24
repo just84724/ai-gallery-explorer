@@ -78,72 +78,72 @@ const BlogPost = () => {
   }
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gallery-red/5 via-purple-50 to-gallery-gold/10">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-pink-100 via-orange-50 to-red-100">
       <Header />
       <main className="flex-grow pt-24">
         <article className="container mx-auto px-4 py-8">
           {/* Navigation buttons */}
           <div className="flex items-center justify-between mb-8">
-            <Link to="/blog" className="inline-flex items-center text-gallery-red hover:text-purple-600 transition-colors font-medium">
-              <ArrowLeft size={16} className="mr-2" />
+            <Link to="/blog" className="inline-flex items-center text-orange-600 hover:text-pink-600 transition-colors font-bold text-lg">
+              <ArrowLeft size={20} className="mr-2" />
               返回文章列表
             </Link>
-            <Link to="/" className="inline-flex items-center text-gallery-red hover:text-purple-600 transition-colors font-medium">
-              <Home size={16} className="mr-2" />
+            <Link to="/" className="inline-flex items-center text-orange-600 hover:text-pink-600 transition-colors font-bold text-lg">
+              <Home size={20} className="mr-2" />
               返回首頁
             </Link>
           </div>
           
           {/* Article header */}
-          <div className="mb-10 bg-white/80 backdrop-blur-sm rounded-2xl p-8 border-2 border-gallery-red/20">
-            <div className="inline-block bg-gradient-to-r from-gallery-red to-purple-600 text-white px-4 py-2 text-sm rounded-full mb-4 font-medium">
+          <div className="mb-12 bg-white rounded-3xl p-10 border-3 border-orange-300 shadow-2xl shadow-orange-200/50">
+            <div className="inline-block bg-gradient-to-r from-orange-500 to-pink-500 text-white px-6 py-3 text-lg rounded-full mb-6 font-black shadow-lg">
               {post.category}
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-display">
-              <span className="text-gallery-red">{post.title}</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 font-display leading-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-600">{post.title}</span>
             </h1>
             
-            <div className="flex flex-wrap gap-4 text-gray-700 text-sm font-medium">
-              <div className="flex items-center gap-1">
-                <Calendar size={16} className="text-gallery-red" />
+            <div className="flex flex-wrap gap-6 text-gray-800 text-lg font-bold">
+              <div className="flex items-center gap-2 bg-orange-100 px-4 py-2 rounded-full">
+                <Calendar size={18} className="text-orange-600" />
                 <span>{post.date}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <Clock size={16} className="text-gallery-red" />
+              <div className="flex items-center gap-2 bg-pink-100 px-4 py-2 rounded-full">
+                <Clock size={18} className="text-pink-600" />
                 <span>{post.readTime}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <User size={16} className="text-gallery-red" />
+              <div className="flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full">
+                <User size={18} className="text-red-600" />
                 <span>{post.author}</span>
               </div>
             </div>
           </div>
           
           {/* Article content */}
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border-2 border-gallery-red/20">
-              <p className="text-xl font-medium text-purple-700 mb-6 leading-relaxed">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-3xl p-10 border-3 border-pink-300 shadow-2xl shadow-pink-200/50">
+              <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-600 mb-8 leading-relaxed">
                 {post.excerpt}
               </p>
               
-              <p className="mb-6 text-gray-800 leading-relaxed text-lg">
+              <p className="mb-8 text-gray-800 leading-relaxed text-xl font-medium">
                 {post.content}
               </p>
             </div>
           </div>
           
           {/* Share buttons */}
-          <div className="max-w-3xl mx-auto mt-12">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-gallery-red/20">
+          <div className="max-w-4xl mx-auto mt-12">
+            <div className="bg-white rounded-3xl p-8 border-3 border-red-300 shadow-2xl shadow-red-200/50">
               <div className="flex items-center justify-between">
-                <h3 className="font-bold text-purple-700 text-lg">分享這篇文章</h3>
+                <h3 className="font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-600 text-2xl">分享這篇文章</h3>
                 <div className="flex gap-4">
-                  <Button variant="outline" size="sm" className="flex items-center gap-2 border-gallery-red text-gallery-red hover:bg-gallery-red hover:text-white">
-                    <Facebook size={16} />
+                  <Button variant="outline" size="lg" className="flex items-center gap-2 border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white font-bold">
+                    <Facebook size={18} />
                     Facebook
                   </Button>
-                  <Button variant="outline" size="sm" className="flex items-center gap-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white">
-                    <Twitter size={16} />
+                  <Button variant="outline" size="lg" className="flex items-center gap-2 border-2 border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white font-bold">
+                    <Twitter size={18} />
                     Twitter
                   </Button>
                 </div>
