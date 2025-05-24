@@ -31,8 +31,9 @@ const Hero = () => {
           className="absolute inset-0 bg-gradient-to-r from-gallery-red/30 via-purple-600/40 to-gallery-blue/50"
           style={{
             backgroundImage: `url('/lovable-uploads/1d5c1738-fbf5-493d-989f-fce892f255fb.png')`,
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
             backgroundBlendMode: 'overlay'
           }}
         ></div>

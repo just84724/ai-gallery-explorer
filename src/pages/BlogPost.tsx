@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, Clock, User, Facebook, Twitter } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, User, Facebook, Twitter, Home } from 'lucide-react';
 
 // Personal AI art journey blog posts
 const blogPosts = [
@@ -82,11 +81,17 @@ const BlogPost = () => {
       <Header />
       <main className="flex-grow pt-24">
         <article className="container mx-auto px-4 py-8">
-          {/* Back button */}
-          <Link to="/blog" className="inline-flex items-center text-gallery-red hover:text-gallery-gold mb-8 transition-colors">
-            <ArrowLeft size={16} className="mr-2" />
-            返回文章列表
-          </Link>
+          {/* Navigation buttons */}
+          <div className="flex items-center justify-between mb-8">
+            <Link to="/blog" className="inline-flex items-center text-gallery-red hover:text-gallery-gold transition-colors">
+              <ArrowLeft size={16} className="mr-2" />
+              返回文章列表
+            </Link>
+            <Link to="/" className="inline-flex items-center text-gallery-red hover:text-gallery-gold transition-colors">
+              <Home size={16} className="mr-2" />
+              返回首頁
+            </Link>
+          </div>
           
           {/* Article header */}
           <div className="mb-10">

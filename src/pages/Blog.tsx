@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Personal AI art journey blog posts
@@ -59,6 +59,14 @@ const Blog = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow pt-24">
+        {/* Back to Home button */}
+        <div className="container mx-auto px-4 pt-4">
+          <Link to="/" className="inline-flex items-center text-gallery-red hover:text-gallery-gold mb-4 transition-colors">
+            <ArrowLeft size={16} className="mr-2" />
+            返回首頁
+          </Link>
+        </div>
+
         {/* Hero Section */}
         <section className="py-16 bg-gradient-to-br from-gallery-red/10 to-gallery-gold/10 relative">
           <div className="container mx-auto px-4">
