@@ -20,8 +20,8 @@ const Hero = () => {
     }
   };
 
-  // Select featured artworks to display in the carousel
-  const featuredArtworks = artworks.slice(0, 6);
+  // Select featured artworks to display in the carousel - now includes all artworks
+  const featuredArtworks = artworks.slice(0, 12);
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
