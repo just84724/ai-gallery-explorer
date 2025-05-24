@@ -60,7 +60,7 @@ const ArtworkCard = ({ id, title, artist, imageSrc, likes = 0, views = 0, onClic
 
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
         <h3 className="text-white font-medium text-lg">{title}</h3>
-        <p className="text-gray-300 text-sm mt-1">{artist}</p>
+        <p className="text-gallery-gold text-sm mt-1 font-medium">AI繪圖作品</p>
         
         <div className="flex items-center mt-2 text-xs text-white/70">
           <Eye size={12} className="mr-1" />

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -77,71 +78,75 @@ const BlogPost = () => {
   }
   
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gallery-red/5 via-purple-50 to-gallery-gold/10">
       <Header />
       <main className="flex-grow pt-24">
         <article className="container mx-auto px-4 py-8">
           {/* Navigation buttons */}
           <div className="flex items-center justify-between mb-8">
-            <Link to="/blog" className="inline-flex items-center text-gallery-red hover:text-gallery-gold transition-colors">
+            <Link to="/blog" className="inline-flex items-center text-gallery-red hover:text-purple-600 transition-colors font-medium">
               <ArrowLeft size={16} className="mr-2" />
               返回文章列表
             </Link>
-            <Link to="/" className="inline-flex items-center text-gallery-red hover:text-gallery-gold transition-colors">
+            <Link to="/" className="inline-flex items-center text-gallery-red hover:text-purple-600 transition-colors font-medium">
               <Home size={16} className="mr-2" />
               返回首頁
             </Link>
           </div>
           
           {/* Article header */}
-          <div className="mb-10">
-            <div className="inline-block bg-gallery-red text-white px-3 py-1 text-sm rounded mb-4">
+          <div className="mb-10 bg-white/80 backdrop-blur-sm rounded-2xl p-8 border-2 border-gallery-red/20">
+            <div className="inline-block bg-gradient-to-r from-gallery-red to-purple-600 text-white px-4 py-2 text-sm rounded-full mb-4 font-medium">
               {post.category}
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-display text-gray-800">
-              {post.title}
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-display">
+              <span className="text-gallery-red">{post.title}</span>
             </h1>
             
-            <div className="flex flex-wrap gap-4 text-gray-600 text-sm">
+            <div className="flex flex-wrap gap-4 text-gray-700 text-sm font-medium">
               <div className="flex items-center gap-1">
-                <Calendar size={16} />
+                <Calendar size={16} className="text-gallery-red" />
                 <span>{post.date}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Clock size={16} />
+                <Clock size={16} className="text-gallery-red" />
                 <span>{post.readTime}</span>
               </div>
               <div className="flex items-center gap-1">
-                <User size={16} />
+                <User size={16} className="text-gallery-red" />
                 <span>{post.author}</span>
               </div>
             </div>
           </div>
           
           {/* Article content */}
-          <div className="max-w-3xl mx-auto prose prose-lg">
-            <p className="text-xl font-medium text-gray-700 mb-6">
-              {post.excerpt}
-            </p>
-            
-            <p className="mb-6 text-gray-700 leading-relaxed">
-              {post.content}
-            </p>
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border-2 border-gallery-red/20">
+              <p className="text-xl font-medium text-purple-700 mb-6 leading-relaxed">
+                {post.excerpt}
+              </p>
+              
+              <p className="mb-6 text-gray-800 leading-relaxed text-lg">
+                {post.content}
+              </p>
+            </div>
           </div>
           
           {/* Share buttons */}
-          <div className="max-w-3xl mx-auto mt-12 pt-8 border-t border-gray-200">
-            <div className="flex items-center justify-between">
-              <h3 className="font-medium text-gray-800">分享這篇文章</h3>
-              <div className="flex gap-4">
-                <Button variant="outline" size="sm" className="flex items-center gap-2">
-                  <Facebook size={16} />
-                  Facebook
-                </Button>
-                <Button variant="outline" size="sm" className="flex items-center gap-2">
-                  <Twitter size={16} />
-                  Twitter
-                </Button>
+          <div className="max-w-3xl mx-auto mt-12">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-gallery-red/20">
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-purple-700 text-lg">分享這篇文章</h3>
+                <div className="flex gap-4">
+                  <Button variant="outline" size="sm" className="flex items-center gap-2 border-gallery-red text-gallery-red hover:bg-gallery-red hover:text-white">
+                    <Facebook size={16} />
+                    Facebook
+                  </Button>
+                  <Button variant="outline" size="sm" className="flex items-center gap-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white">
+                    <Twitter size={16} />
+                    Twitter
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

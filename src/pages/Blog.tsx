@@ -56,25 +56,26 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gallery-red/5 via-purple-50 to-gallery-gold/10">
       <Header />
       <main className="flex-grow pt-24">
         {/* Back to Home button */}
         <div className="container mx-auto px-4 pt-4">
-          <Link to="/" className="inline-flex items-center text-gallery-red hover:text-gallery-gold mb-4 transition-colors">
+          <Link to="/" className="inline-flex items-center text-gallery-red hover:text-gallery-gold mb-4 transition-colors font-medium">
             <ArrowLeft size={16} className="mr-2" />
             返回首頁
           </Link>
         </div>
 
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-br from-gallery-red/10 to-gallery-gold/10 relative">
+        <section className="py-16 bg-gradient-to-br from-gallery-red/20 to-gallery-gold/20 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-display text-gray-800">
-                <span className="text-gallery-red">我的</span> AI 繪圖旅程
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-display">
+                <span className="text-gallery-red">我的</span> 
+                <span className="text-purple-700 ml-2">AI 繪圖旅程</span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-2xl">
+              <p className="text-xl text-gray-700 mb-8 max-w-2xl font-medium">
                 從 2023 年至今，記錄我使用 AI 繪圖技術的心得與成長歷程，以及對這個快速發展領域的觀察。
               </p>
               <div className="w-24 h-1 bg-gradient-to-r from-gallery-red to-gallery-gold"></div>
@@ -82,33 +83,33 @@ const Blog = () => {
           </div>
           
           {/* Decorative elements */}
-          <div className="absolute -top-10 right-10 w-20 h-20 rounded-full bg-gallery-red/10 blur-3xl"></div>
-          <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full bg-gallery-gold/10 blur-3xl"></div>
+          <div className="absolute -top-10 right-10 w-20 h-20 rounded-full bg-gallery-red/20 blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full bg-gallery-gold/20 blur-3xl"></div>
         </section>
         
         {/* Blog Posts Grid */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white/80 backdrop-blur-sm">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.map(post => (
-                <div key={post.id} className="bg-gray-50 rounded-xl overflow-hidden border border-gray-100 hover:border-gallery-red/50 transition-all hover:shadow-lg hover:shadow-gallery-red/10 group">
+                <div key={post.id} className="bg-white/90 rounded-xl overflow-hidden border-2 border-gallery-red/20 hover:border-gallery-red/60 transition-all hover:shadow-xl hover:shadow-gallery-red/20 group backdrop-blur-sm">
                   <div className="p-6">
-                    <div className="flex justify-between items-center text-sm text-gray-500 mb-3">
+                    <div className="flex justify-between items-center text-sm text-gray-600 mb-3 font-medium">
                       <span>{post.date}</span>
-                      <span>{post.readTime}</span>
+                      <span className="text-gallery-red">{post.readTime}</span>
                     </div>
-                    <div className="inline-block bg-gallery-red text-white px-3 py-1 text-xs rounded mb-3">
+                    <div className="inline-block bg-gradient-to-r from-gallery-red to-purple-600 text-white px-3 py-1 text-xs rounded-full mb-3 font-medium">
                       {post.category}
                     </div>
                     <h3 className="text-xl font-bold mb-3 text-gray-800 group-hover:text-gallery-red transition-colors">
                       {post.title}
                     </h3>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-700 mb-4 leading-relaxed">
                       {post.excerpt}
                     </p>
                     <Link
                       to={`/blog/${post.id}`}
-                      className="inline-flex items-center text-gallery-red font-medium hover:text-gallery-gold transition-colors"
+                      className="inline-flex items-center text-gallery-red font-bold hover:text-purple-600 transition-colors"
                     >
                       閱讀更多
                       <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />

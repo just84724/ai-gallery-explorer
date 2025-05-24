@@ -118,9 +118,8 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
             <div className="flex justify-between items-start">
               <div>
                 <h2 className="text-2xl font-bold">{artwork.title}</h2>
-                <p className="text-gallery-red font-medium">{artwork.artist}</p>
+                <p className="text-gallery-red font-medium text-lg">AI繪圖作品</p>
               </div>
-              {/* 移除這個自定義的關閉按鈕，因為DialogContent已經自帶了一個 */}
             </div>
 
             <div className="mt-6 space-y-4">
