@@ -54,22 +54,22 @@ const GalleryGrid = () => {
   return (
     <div>
       <Tabs defaultValue="all" className="mb-8">
-        <TabsList>
-          <TabsTrigger value="all">所有作品</TabsTrigger>
-          <TabsTrigger value="popular">最受歡迎</TabsTrigger>
-          <TabsTrigger value="views">最多瀏覽</TabsTrigger>
+        <TabsList className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-2 border-purple-300 shadow-lg">
+          <TabsTrigger value="all" className="data-[state=active]:bg-white data-[state=active]:text-purple-600 font-bold">所有作品</TabsTrigger>
+          <TabsTrigger value="popular" className="data-[state=active]:bg-white data-[state=active]:text-pink-600 font-bold">最受歡迎</TabsTrigger>
+          <TabsTrigger value="views" className="data-[state=active]:bg-white data-[state=active]:text-orange-600 font-bold">最多瀏覽</TabsTrigger>
         </TabsList>
         
         <TabsContent value="all">
           <div className="flex justify-end mb-6">
             <Select value={sortOption} onValueChange={setSortOption}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[180px] border-2 border-purple-300 bg-white shadow-lg font-bold text-purple-700">
                 <SelectValue placeholder="排序方式" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="newest">最新上傳</SelectItem>
-                <SelectItem value="popular">最受歡迎</SelectItem>
-                <SelectItem value="views">最多瀏覽</SelectItem>
+              <SelectContent className="border-2 border-purple-300">
+                <SelectItem value="newest" className="font-bold text-purple-700">最新上傳</SelectItem>
+                <SelectItem value="popular" className="font-bold text-pink-700">最受歡迎</SelectItem>
+                <SelectItem value="views" className="font-bold text-orange-700">最多瀏覽</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -87,7 +87,7 @@ const GalleryGrid = () => {
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {[...Array(8)].map((_, index) => (
-            <div key={index} className="aspect-[3/4] rounded-xl bg-slate-200 animate-pulse"></div>
+            <div key={index} className="aspect-[3/4] rounded-xl bg-gradient-to-br from-purple-200 to-pink-200 animate-pulse border-2 border-purple-300 shadow-lg"></div>
           ))}
         </div>
       ) : (
