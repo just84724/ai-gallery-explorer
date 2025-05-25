@@ -21,6 +21,15 @@ const ShareButton = ({ artwork }: ShareButtonProps) => {
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
 
+  // 確保圖片網址是完整的 URL
+  const getFullImageUrl = (imageSrc: string) => {
+    if (imageSrc.startsWith('http')) {
+      return imageSrc;
+    }
+    return `${window.location.origin}${imageSrc}`;
+  };
+
+  const fullImageUrl = getFullImageUrl(artwork.imageSrc);
   const shareUrl = `${window.location.origin}/gallery`;
   const shareText = `查看這個精彩的AI藝術作品：${artwork.title}`;
 
@@ -32,14 +41,14 @@ const ShareButton = ({ artwork }: ShareButtonProps) => {
         url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
         break;
       case 'facebook':
-        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&picture=${encodeURIComponent(fullImageUrl)}`;
         break;
       case 'pinterest':
-        url = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(shareUrl)}&media=${encodeURIComponent(artwork.imageSrc)}&description=${encodeURIComponent(shareText)}`;
+        url = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(shareUrl)}&media=${encodeURIComponent(fullImageUrl)}&description=${encodeURIComponent(shareText)}`;
         break;
       case 'instagram':
-        // Instagram doesn't support direct sharing via URL, so we'll copy the link
-        navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+        // Instagram doesn't support direct sharing via URL, so we'll copy the content with image URL
+        navigator.clipboard.writeText(`${shareText}\n圖片：${fullImageUrl}\n頁面：${shareUrl}`);
         toast({
           title: "已複製到剪貼簿",
           description: "請在Instagram中貼上分享內容",
@@ -54,7 +63,7 @@ const ShareButton = ({ artwork }: ShareButtonProps) => {
 
   const handleCopyUrl = async () => {
     try {
-      await navigator.clipboard.writeText(artwork.imageSrc);
+      await navigator.clipboard.writeText(fullImageUrl);
       setCopied(true);
       toast({
         title: "圖片網址已複製",
@@ -72,7 +81,7 @@ const ShareButton = ({ artwork }: ShareButtonProps) => {
 
   const handleDownload = async () => {
     try {
-      const response = await fetch(artwork.imageSrc);
+      const response = await fetch(fullImageUrl);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -102,12 +111,13 @@ const ShareButton = ({ artwork }: ShareButtonProps) => {
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-2 left-2 text-white hover:bg-black/20"
+          className="absolute top-2 left-2 text-white hover:bg-black/20 z-10"
+          onClick={(e) => e.stopPropagation()}
         >
           <Share2 size={20} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-56 p-3">
+      <PopoverContent className="w-56 p-3" onClick={(e) => e.stopPropagation()}>
         <div className="space-y-2">
           <h4 className="font-medium text-sm text-gray-700 mb-3">分享到</h4>
           
