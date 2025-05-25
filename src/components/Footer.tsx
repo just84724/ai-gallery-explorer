@@ -1,5 +1,5 @@
 
-import { Palette, Facebook, Twitter, Instagram, Mail } from 'lucide-react';
+import { Palette, Facebook, Instagram, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -51,10 +51,12 @@ const Footer = () => {
               <a href="https://twitter.com/intent/tweet?url=https://ai-gallery.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-[#1DA1F2] transition-colors flex items-center gap-2"
-                aria-label="分享到 Twitter">
-                <Twitter size={20} />
-                <span className="hidden sm:inline">Twitter</span>
+                className="text-gray-500 hover:text-black transition-colors flex items-center gap-2"
+                aria-label="分享到 X">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                <span className="hidden sm:inline">X</span>
               </a>
               <a href="https://www.instagram.com/" 
                 target="_blank" 

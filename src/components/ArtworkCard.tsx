@@ -76,12 +76,12 @@ const ArtworkCard = ({ id, title, artist, imageSrc, likes = 0, views = 0, onClic
       <Button 
         variant="ghost"
         size="icon"
-        className="absolute top-2 right-2 text-white hover:bg-black/20"
+        className="absolute top-2 right-2 text-red-500 hover:bg-white/20 hover:text-red-500 z-10"
         onClick={handleFavoriteClick}
       >
         <Heart 
           size={20} 
-          className={favorite ? "fill-gallery-red text-gallery-red" : ""}
+          className={favorite ? "fill-red-500 text-red-500" : "text-red-500"}
         />
       </Button>
     </div>

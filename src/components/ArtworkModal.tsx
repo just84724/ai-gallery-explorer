@@ -105,12 +105,12 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="bg-black/20 text-white hover:bg-black/40"
+                  className="bg-white/20 text-red-500 hover:bg-white/40 hover:text-red-500"
                   onClick={handleFavoriteClick}
                 >
                   <Heart 
                     size={20}
-                    className={favorite ? "fill-gallery-red text-gallery-red" : ""}
+                    className={favorite ? "fill-red-500 text-red-500" : "text-red-500"}
                   />
                 </Button>
               </div>
