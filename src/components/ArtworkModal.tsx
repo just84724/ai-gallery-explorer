@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import useFavorites from '@/hooks/useFavorites';
 import { artworkService, Artwork } from '@/services/artworkService';
+import ShareButton from './ShareButton';
 
 interface ArtworkModalProps {
   artwork: Artwork | null;
@@ -97,6 +98,9 @@ const ArtworkModal = ({ artwork, isOpen, onClose }: ArtworkModalProps) => {
                 alt={artwork.title}
                 className="w-full h-full object-contain bg-black"
               />
+              <div className="absolute top-2 left-2 flex gap-2">
+                <ShareButton artwork={{ id: artwork.id, title: artwork.title, imageSrc: artwork.imageSrc }} />
+              </div>
               <div className="absolute top-2 right-2 flex gap-2">
                 <Button
                   variant="ghost"

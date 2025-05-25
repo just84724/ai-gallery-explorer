@@ -4,6 +4,7 @@ import { Heart, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import useFavorites from '@/hooks/useFavorites';
+import ShareButton from './ShareButton';
 
 interface ArtworkCardProps {
   id: string;
@@ -68,6 +69,10 @@ const ArtworkCard = ({ id, title, artist, imageSrc, likes = 0, views = 0, onClic
         </div>
       </div>
       
+      {/* Share Button */}
+      <ShareButton artwork={{ id, title, imageSrc }} />
+      
+      {/* Favorite Button */}
       <Button 
         variant="ghost"
         size="icon"
