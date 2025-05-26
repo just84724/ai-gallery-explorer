@@ -173,19 +173,19 @@ export const artworks = [
   },
   {
     id: '20',
-    title: '聖誕吉他',
-    artist: 'AI音樂創作室',
+    title: '錠前紗織《蔚藍檔案》',
+    artist: '透過 Illustrious 模型創作的一位動漫角色。',
     imageSrc: '/lovable-uploads/37fcdb78-e46f-44e4-9f04-78b103374d42.png',
-    description: '在溫馨的聖誕夜晚，黑髮少女身穿紅色聖誕毛衣，坐在窗邊彈奏吉他。窗外的雪花和室內的聖誕樹營造出完美的節日氛圍，音樂與視覺的美妙結合。',
+    description: '提示詞：masterpiece,best quality, amazing quality, very aesthetic,absurdres,highres,1girl,solo, saori_\(blue_archive\)quasarcake, ringsel, sitting, christmas tree, christmas sweater, red sweater, turtleneck sweater, window, holding instrument, playing instrument, open mouth, smile, solo, long sleeves, merry christmas, acoustic guitar, indoors, night, snowing, earrings, pine tree, kneehighs, building, vibrant colors,',
     likes: 423,
     date: '2025-05-26'
   },
   {
     id: '21',
-    title: '冬日暖手',
-    artist: 'AI溫暖畫室',
+    title: '冬日暖手《明日方舟》',
+    artist: '使用各個畫家風格混合成的AI繪圖，具有不同的特色。',
     imageSrc: '/lovable-uploads/97e24b8b-4204-4640-be95-6da930e429ad.png',
-    description: '可愛的兔耳少女戴著暖手套，在飄雪的冬日中展現純真的笑容。紅色髮帶和白色大衣的搭配，加上溫暖的燈光背景，傳遞出冬季的溫暖與美好。',
+    description: 'masterpiece,best quality, amazing quality, very aesthetic,absurdres,highres,1girl, amiya \(arknights\), arknights,(ningen mame:0.65),(wlop:0.378),(dino \(dinoartforame\):0.9),(tianliang duohe fangdongye:0.9),ask \(askzy\),chen_bin,(aki99:0.36),void 0,(omone hokoma agm:0.7),(nixeu:0.53),(kidmo:0.6),(sy4:1.2),(mignon:0.677),(remsrar:0.9),(rin_yuu:0.9),(quasarcake:1.1),straight on, 1girl, solo, long hair, looking at viewer, blush, upper body, hair bow, alternate costume, cape, red bow, hands up, symbol-shaped pupils, fur trim, hair intakes, green bow, covering own mouth, winter clothes, mittens, heart-shaped pupils, fur-trimmed cloak, white mittens, Warm eyes, light Smile, snowing,blow air in front of mouth to keep warm, Big bow on the head, Warm Christmas atmosphere background,Bokeh,',
     likes: 398,
     date: '2025-05-26'
   }
