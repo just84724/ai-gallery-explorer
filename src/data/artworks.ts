@@ -182,7 +182,7 @@ export const artworks = [
   },
   {
     id: '21',
-    title: '冬日暖手《明日方舟》',
+    title: '阿米婭《明日方舟》',
     artist: '使用各個畫家風格混合成的AI繪圖，具有不同的特色。',
     imageSrc: '/lovable-uploads/97e24b8b-4204-4640-be95-6da930e429ad.png',
     description: 'masterpiece,best quality, amazing quality, very aesthetic,absurdres,highres,1girl, amiya \(arknights\), arknights,(ningen mame:0.65),(wlop:0.378),(dino \(dinoartforame\):0.9),(tianliang duohe fangdongye:0.9),ask \(askzy\),chen_bin,(aki99:0.36),void 0,(omone hokoma agm:0.7),(nixeu:0.53),(kidmo:0.6),(sy4:1.2),(mignon:0.677),(remsrar:0.9),(rin_yuu:0.9),(quasarcake:1.1),straight on, 1girl, solo, long hair, looking at viewer, blush, upper body, hair bow, alternate costume, cape, red bow, hands up, symbol-shaped pupils, fur trim, hair intakes, green bow, covering own mouth, winter clothes, mittens, heart-shaped pupils, fur-trimmed cloak, white mittens, Warm eyes, light Smile, snowing,blow air in front of mouth to keep warm, Big bow on the head, Warm Christmas atmosphere background,Bokeh,',
