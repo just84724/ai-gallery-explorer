@@ -170,5 +170,23 @@ export const artworks = [
     description: '金髮戰士少女手持發光的紫色光劍，在古代廢墟中展現出強大的戰鬥力。光劍的紫色光芒與溫暖的環境光形成鮮明對比，充滿動感。',
     likes: 478,
     date: '2025-04-14'
+  },
+  {
+    id: '20',
+    title: '聖誕吉他',
+    artist: 'AI音樂創作室',
+    imageSrc: '/lovable-uploads/37fcdb78-e46f-44e4-9f04-78b103374d42.png',
+    description: '在溫馨的聖誕夜晚，黑髮少女身穿紅色聖誕毛衣，坐在窗邊彈奏吉他。窗外的雪花和室內的聖誕樹營造出完美的節日氛圍，音樂與視覺的美妙結合。',
+    likes: 423,
+    date: '2025-05-26'
+  },
+  {
+    id: '21',
+    title: '冬日暖手',
+    artist: 'AI溫暖畫室',
+    imageSrc: '/lovable-uploads/97e24b8b-4204-4640-be95-6da930e429ad.png',
+    description: '可愛的兔耳少女戴著暖手套，在飄雪的冬日中展現純真的笑容。紅色髮帶和白色大衣的搭配，加上溫暖的燈光背景，傳遞出冬季的溫暖與美好。',
+    likes: 398,
+    date: '2025-05-26'
   }
 ];
