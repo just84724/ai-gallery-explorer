@@ -16,7 +16,7 @@ const Footer = () => {
               </h3>
             </Link>
             <p className="text-gray-600 text-sm mb-4">
-              探索AI藝術的無限可能，發現由人工智能創造的驚艷作品。
+              探索AI藝術的無限可能，由人工智能創造的驚艷作品。
             </p>
             <div className="flex items-center gap-2 text-gray-600 hover:text-gallery-red transition-colors">
               <Mail size={18} />
@@ -29,7 +29,7 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-600">
               <li><Link to="/" className="hover:text-gallery-red transition-colors">首頁</Link></li>
               <li><Link to="/blog" className="hover:text-gallery-red transition-colors">部落格</Link></li>
-              <li><Link to="/gallery" className="hover:text-gallery-red transition-colors">藝術家</Link></li>
+              <li><Link to="/gallery" className="hover:text-gallery-red transition-colors">AI繪圖作品</Link></li>
             </ul>
           </div>
         </div>
@@ -56,7 +56,7 @@ const Footer = () => {
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
-                <span className="hidden sm:inline">X</span>
+                <span className="hidden sm:inline">Twitter</span>
               </a>
               <a href="https://www.instagram.com/" 
                 target="_blank" 
