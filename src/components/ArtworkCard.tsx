@@ -16,7 +16,15 @@ interface ArtworkCardProps {
   onClick: () => void;
 }
 
-const ArtworkCard = ({ id, title, artist, imageSrc, likes = 0, views = 0, onClick }: ArtworkCardProps) => {
+const ArtworkCard = ({ 
+  id, 
+  title, 
+  artist, 
+  imageSrc, 
+  likes = 0, 
+  views = 0, 
+  onClick 
+}: ArtworkCardProps) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const [favorite, setFavorite] = useState(false);
   const { toast } = useToast();
@@ -26,23 +34,24 @@ const ArtworkCard = ({ id, title, artist, imageSrc, likes = 0, views = 0, onClic
   }, [id, isFavorite]);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click event
+    e.stopPropagation();
     
-    if (favorite) {
-      removeFavorite(id);
-      toast({
-        title: "已從收藏中移除",
-        description: "作品已從您的收藏中移除",
-      });
-    } else {
+    const newFavoriteState = !favorite;
+    setFavorite(newFavoriteState);
+    
+    if (newFavoriteState) {
       addFavorite(id);
       toast({
         title: "已加入收藏",
         description: "作品已加入您的收藏",
       });
+    } else {
+      removeFavorite(id);
+      toast({
+        title: "已從收藏中移除",
+        description: "作品已從您的收藏中移除",
+      });
     }
-    
-    setFavorite(!favorite);
   };
 
   return (
@@ -60,7 +69,7 @@ const ArtworkCard = ({ id, title, artist, imageSrc, likes = 0, views = 0, onClic
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-        <h3 className="text-white font-medium text-lg">{title}</h3>
+        <h3 className="text-white font-medium text-lg truncate">{title}</h3>
         <p className="text-gallery-gold text-sm mt-1 font-medium">AI繪圖作品</p>
         
         <div className="flex items-center mt-2 text-xs text-white/70">
@@ -69,14 +78,12 @@ const ArtworkCard = ({ id, title, artist, imageSrc, likes = 0, views = 0, onClic
         </div>
       </div>
       
-      {/* Share Button */}
       <ShareButton artwork={{ id, title, imageSrc }} />
       
-      {/* Favorite Button */}
       <Button 
         variant="ghost"
         size="icon"
-        className="absolute top-2 right-2 text-red-500 hover:bg-white/20 hover:text-red-500 z-10"
+        className="absolute top-2 right-2 text-white hover:bg-white/30 backdrop-blur-sm bg-black/20 z-10"
         onClick={handleFavoriteClick}
       >
         <Heart 
